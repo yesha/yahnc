@@ -33,6 +33,9 @@ DerivedData
 .idea/
 *.hmap
 
+# CocoaPods
+Pods/
+
 ### Xcode ###
 build
 *.xcodeproj/*
