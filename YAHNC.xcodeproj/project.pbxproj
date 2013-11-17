@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCADE1839769600554B35 /* YHNFrontpage.m */; };
 		C4AE4BBC1830BE3C0020C1CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */; };
 		C4AE4BBE1830BE3C0020C1CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */; };
 		C4AE4BC01830BE3C0020C1CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBF1830BE3C0020C1CE /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		0723994E0FBB46648DD51F0E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
+		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
 		C4AE4BB81830BE3C0020C1CE /* YAHNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YAHNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -180,6 +183,8 @@
 				C4E09EB618394A37008A21F1 /* YHNArticle.m */,
 				C4E09EB818394D8C008A21F1 /* YHNScraper.h */,
 				C4E09EB918394D8C008A21F1 /* YHNScraper.m */,
+				C48FCADD1839769600554B35 /* YHNFrontpage.h */,
+				C48FCADE1839769600554B35 /* YHNFrontpage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
 				C4AE4BD81830BE3C0020C1CE /* YHNDetailViewController.m in Sources */,
+				C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */,
 				C4AE4BCC1830BE3C0020C1CE /* YHNAppDelegate.m in Sources */,
 				C4E09EBA18394D8C008A21F1 /* YHNScraper.m in Sources */,
 				C4AE4BC81830BE3C0020C1CE /* main.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "YHNScraper.h"
+#import "YHNFrontpage.h"
 
 #import "YHNMasterViewController.h"
 
@@ -20,8 +21,8 @@
 @implementation YHNMasterViewController
 
 - (IBAction)buttonTest:(id)sender {
-    NSArray *articles = [YHNScraper loadFrontpage];
-    NSLog(@"%@", articles);
+    YHNFrontpage *frontpage = [YHNScraper loadFrontpage];
+    NSLog(@"%@", frontpage);
 }
 
 - (void)awakeFromNib

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YHNArticle.h"
+#import "YHNFrontpage.h"
 
 @interface YHNScraper : NSObject
 
-+ (NSArray *)loadFrontpage;
++ (YHNFrontpage *)loadFrontpage;
++ (YHNFrontpage *)loadFrontpageWithUrl:(NSURL *)frontpageUrl;
 
 @end

@@ -8,15 +8,20 @@
 
 #import "TFHpple.h"
 
+#import "YHNArticle.h"
 #import "YHNScraper.h"
 
 #define BASE_URL "https://news.ycombinator.com/"
 
 @implementation YHNScraper
 
-+ (NSArray *)loadFrontpage
++ (YHNFrontpage *)loadFrontpage
 {
-    NSURL *frontpageUrl = [YHNScraper makeEndpoint:@"news"];
+    return [YHNScraper loadFrontpageWithUrl:[YHNScraper makeEndpoint:@"news"]];
+}
+
++ (YHNFrontpage *)loadFrontpageWithUrl:(NSURL *)frontpageUrl
+{
     // TODO: error handling
     NSData *htmlData = [NSData dataWithContentsOfURL:frontpageUrl];
     
@@ -44,7 +49,16 @@
         [articles addObject:article];
     }
     
-    return articles;
+    // Parse the last element for the More URL
+    TFHppleElement *moreTr = [articleNodes lastObject];
+    TFHppleElement *moreTd = [moreTr childrenWithClassName:@"title"][0];
+    TFHppleElement *moreAnchor = [moreTd childrenWithTagName:@"a"][0];
+    // Apparently returns "newsX" (where X is a number). This behavior seems to be unique on
+    // mobile Safari.
+    NSURL *moreUrl = [YHNScraper makeEndpoint:moreAnchor.attributes[@"href"]];
+    
+    YHNFrontpage *frontpage = [[YHNFrontpage alloc] initWithArticles:articles moreUrl:moreUrl];
+    return frontpage;
 }
 
 + (void)fillArticle:(YHNArticle *)article withTitleElement:(TFHppleElement *)titleTr
