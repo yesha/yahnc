@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCADE1839769600554B35 /* YHNFrontpage.m */; };
+		C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE1183999B000554B35 /* YHNCommentsThread.m */; };
+		C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE418399BAE00554B35 /* YHNComment.m */; };
 		C4AE4BBC1830BE3C0020C1CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */; };
 		C4AE4BBE1830BE3C0020C1CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */; };
 		C4AE4BC01830BE3C0020C1CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBF1830BE3C0020C1CE /* UIKit.framework */; };
@@ -44,6 +46,10 @@
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
 		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
+		C48FCAE0183999B000554B35 /* YHNCommentsThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNCommentsThread.h; sourceTree = "<group>"; };
+		C48FCAE1183999B000554B35 /* YHNCommentsThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNCommentsThread.m; sourceTree = "<group>"; };
+		C48FCAE318399BAE00554B35 /* YHNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNComment.h; sourceTree = "<group>"; };
+		C48FCAE418399BAE00554B35 /* YHNComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNComment.m; sourceTree = "<group>"; };
 		C4AE4BB81830BE3C0020C1CE /* YAHNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YAHNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -185,6 +191,10 @@
 				C4E09EB918394D8C008A21F1 /* YHNScraper.m */,
 				C48FCADD1839769600554B35 /* YHNFrontpage.h */,
 				C48FCADE1839769600554B35 /* YHNFrontpage.m */,
+				C48FCAE0183999B000554B35 /* YHNCommentsThread.h */,
+				C48FCAE1183999B000554B35 /* YHNCommentsThread.m */,
+				C48FCAE318399BAE00554B35 /* YHNComment.h */,
+				C48FCAE418399BAE00554B35 /* YHNComment.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -324,8 +334,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
+				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
 				C4AE4BD81830BE3C0020C1CE /* YHNDetailViewController.m in Sources */,
+				C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */,
 				C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */,
 				C4AE4BCC1830BE3C0020C1CE /* YHNAppDelegate.m in Sources */,
 				C4E09EBA18394D8C008A21F1 /* YHNScraper.m in Sources */,
