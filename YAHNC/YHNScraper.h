@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "YHNFrontpage.h"
+#import "YHNCommentsThread.h"
 
 @interface YHNScraper : NSObject
 
 + (YHNFrontpage *)loadFrontpage;
-+ (YHNFrontpage *)loadFrontpageWithUrl:(NSURL *)frontpageUrl;
++ (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData;
 
 @end

@@ -17,14 +17,12 @@
 
 + (YHNFrontpage *)loadFrontpage
 {
-    return [YHNScraper loadFrontpageWithUrl:[YHNScraper makeEndpoint:@"news"]];
+    return [YHNScraper loadFrontpageWithData:
+            [NSData dataWithContentsOfURL:[YHNScraper makeEndpoint:@"news"]]];
 }
 
-+ (YHNFrontpage *)loadFrontpageWithUrl:(NSURL *)frontpageUrl
++ (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData
 {
-    // TODO: error handling
-    NSData *htmlData = [NSData dataWithContentsOfURL:frontpageUrl];
-    
     TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
     
     // Base XPath expression to reach the table containing article rows
