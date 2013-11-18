@@ -6,19 +6,41 @@
 //  Copyright (c) 2013 YAHNC. All rights reserved.
 //
 
+#import "AFNetworking.h"
 #import "TFHpple.h"
 
 #import "YHNArticle.h"
 #import "YHNScraper.h"
 
-#define BASE_URL "https://news.ycombinator.com/"
-
 @implementation YHNScraper
 
-+ (YHNFrontpage *)loadFrontpage
+NSString             *const BASE_URL = @"https://news.ycombinator.com/";
+NSURL                *baseUrl;
+AFHTTPSessionManager *sessionManager;
+
++ (void)initialize
 {
-    return [YHNScraper loadFrontpageWithData:
-            [NSData dataWithContentsOfURL:[YHNScraper makeEndpoint:@"news"]]];
+    if (self == [YHNScraper class])
+    {
+        baseUrl        = [NSURL URLWithString:BASE_URL];
+        sessionManager = [[AFHTTPSessionManager manager] initWithBaseURL:baseUrl];
+        
+        sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
+}
+
++ (void)loadFrontpage:(void (^) (YHNFrontpage *frontpage))success
+   withFailureHandler:(void (^) (NSError *error))failure
+{
+    [sessionManager GET:@"news"
+             parameters:nil
+                success:^(NSURLSessionDataTask *task, id responseObject) {
+                    success([YHNScraper loadFrontpageWithData:(NSData *)responseObject]);
+                }
+                failure:^(NSURLSessionDataTask *task, id responseObject) {
+                    NSLog(@"Failure: %@", responseObject);
+                }
+     ];
 }
 
 + (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData
@@ -53,7 +75,7 @@
     TFHppleElement *moreAnchor = [moreTd childrenWithTagName:@"a"][0];
     // Apparently returns "newsX" (where X is a number). This behavior seems to be unique on
     // mobile Safari.
-    NSURL *moreUrl = [YHNScraper makeEndpoint:moreAnchor.attributes[@"href"]];
+    NSURL *moreUrl = [baseUrl URLByAppendingPathComponent:moreAnchor.attributes[@"href"]];
     
     YHNFrontpage *frontpage = [[YHNFrontpage alloc] initWithArticles:articles moreUrl:moreUrl];
     return frontpage;
@@ -107,24 +129,19 @@
     // child 2 has user information
     TFHppleElement *userElement = children[2];
     NSString *user = [userElement text];
-    NSURL *userUrl = [YHNScraper makeEndpoint:userElement.attributes[@"href"]];
+    NSURL *userUrl = [baseUrl URLByAppendingPathComponent:userElement.attributes[@"href"]];
     
     // child 3 has time information (TODO we'll get this later)
     // child 4 has comments information
     TFHppleElement *commentsElement = children[4];
     NSInteger commentCount = [YHNScraper getQuantityFromString:[commentsElement text]];
-    NSURL *commentsUrl = [YHNScraper makeEndpoint:commentsElement.attributes[@"href"]];
+    NSURL *commentsUrl = [baseUrl URLByAppendingPathComponent:commentsElement.attributes[@"href"]];
     
     article.score = score;
     article.user = user;
     article.userUrl = userUrl;
     article.commentCount = commentCount;
     article.commentsUrl = commentsUrl;
-}
-
-+ (NSURL *)makeEndpoint:(NSString *)endpoint
-{
-    return [NSURL URLWithString:[@BASE_URL stringByAppendingString:endpoint]];
 }
 
 // Given a string like "50 objects" or "34 bananas", extract the number and return it

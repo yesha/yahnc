@@ -13,7 +13,8 @@
 
 @interface YHNScraper : NSObject
 
-+ (YHNFrontpage *)loadFrontpage;
++ (void)loadFrontpage:(void (^) (YHNFrontpage *frontpage))success
+   withFailureHandler:(void (^) (NSError *error))failure;
 + (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData;
 
 @end
