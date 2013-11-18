@@ -38,7 +38,7 @@ AFHTTPSessionManager *sessionManager;
                     success([YHNScraper loadFrontpageWithData:(NSData *)responseObject]);
                 }
                 failure:^(NSURLSessionDataTask *task, id responseObject) {
-                    NSLog(@"Failure: %@", responseObject);
+                    failure(task.error);
                 }
      ];
 }
