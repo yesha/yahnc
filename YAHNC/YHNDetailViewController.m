@@ -10,6 +10,11 @@
 
 @interface YHNDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
+@property (strong, nonatomic) IBOutlet UILabel *postTitle;
+@property (strong, nonatomic) IBOutlet UILabel *postVoteNum;
+@property (strong, nonatomic) IBOutlet UILabel *postTime;
+@property (strong, nonatomic) IBOutlet UILabel *postCommentNum;
+@property (strong, nonatomic) IBOutlet UILabel *postLink;
 - (void)configureView;
 @end
 
