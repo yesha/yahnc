@@ -10,4 +10,13 @@
 
 @implementation YHNArticle
 
+- (void)setTitle:(NSString *)title
+{
+    if ([YHNUtils string:title startsWith:@"Show HN"]) {
+        _isShowHN = YES;
+    } else if ([YHNUtils string:title startsWith:@"Ask HN"]) {
+        _isAskHN = YES;
+    }
+}
+
 @end
