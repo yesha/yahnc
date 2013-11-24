@@ -20,9 +20,17 @@
 
 @implementation YHNMasterViewController
 
-- (IBAction)buttonTest:(id)sender {
-    YHNFrontpage *frontpage = [YHNScraper loadFrontpage];
-    NSLog(@"%@", frontpage);
+- (IBAction)buttonTest:(id)sender
+{
+    [YHNScraper loadFrontpage:^(YHNFrontpage *frontpage) {
+                    // wooooooooooooo!!!!!!!! 11/18 12:40 am
+                    NSLog(@"%@", ((YHNArticle*)frontpage.articles[0]).title);
+                }
+                withFailureHandler:^(NSError *error){
+                    
+                }
+     ];
+//    NSLog(@"%@", frontpage);
 }
 
 - (void)awakeFromNib
