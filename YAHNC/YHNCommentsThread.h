@@ -13,6 +13,8 @@
 @interface YHNCommentsThread : NSObject
 
 @property (nonatomic, strong, readonly) YHNArticle *article;
-@property (nonatomic, strong) NSArray *parentComments;
+@property (nonatomic, strong, readonly) NSArray *parentComments;
+
+- (id)initWithArticle:(YHNArticle *)article comments:(NSArray *)parentComments;
 
 @end

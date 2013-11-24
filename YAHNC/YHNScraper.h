@@ -15,5 +15,6 @@
 
 + (YHNFrontpage *)loadFrontpage;
 + (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData;
++ (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData;
 
 @end

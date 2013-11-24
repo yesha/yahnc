@@ -8,6 +8,25 @@
 
 #import "YHNCommentsThread.h"
 
+@interface YHNCommentsThread ()
+
+// Re-declare properties to make them readwrite privately
+@property (nonatomic, strong, readwrite) YHNArticle *article;
+@property (nonatomic, strong, readwrite) NSArray *parentComments;
+
+@end
+
 @implementation YHNCommentsThread
+
+- (id)initWithArticle:(YHNArticle *)article comments:(NSArray *)parentComments
+{
+    self = [self init];
+    if (self) {
+        self.article = article;
+        self.parentComments = parentComments;
+    }
+
+    return self;
+}
 
 @end

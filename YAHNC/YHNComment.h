@@ -11,6 +11,8 @@
 @interface YHNComment : NSObject
 
 @property (nonatomic, strong) YHNComment *parent;
+@property (nonatomic, strong) NSMutableArray *children;
+@property (nonatomic) NSInteger depth;
 
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) NSURL *userUrl;
@@ -23,5 +25,7 @@
 @property (nonatomic, strong) UIColor *color;
 
 @property (nonatomic, strong) NSURL *replyUrl;
+
+- (void)addChild:(YHNComment *)comment;
 
 @end

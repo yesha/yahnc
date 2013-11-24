@@ -8,8 +8,10 @@
 
 #import "TFHpple.h"
 
-#import "YHNArticle.h"
+#import "YHNModels.h"
 #import "YHNScraper.h"
+#import "YHNStack.h"
+#import "YHNArrayStack.h"
 
 #define BASE_URL "https://news.ycombinator.com/"
 
@@ -127,6 +129,122 @@
     return [NSURL URLWithString:[@BASE_URL stringByAppendingString:endpoint]];
 }
 
++ (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData
+{
+    TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
+
+    // Base XPath expression to reach the table containing article rows
+    NSString *baseXPathQuery = @"//center/table/tr[3]/td/table[2]/tr/td/table/tr";
+    NSArray *commentNodes = [parser searchWithXPathQuery:baseXPathQuery];
+
+    NSMutableArray *comments = [NSMutableArray new];
+    
+    int i = 0;
+    for (TFHppleElement *commentElement in commentNodes) {
+        NSLog(@"%d", i);
+        YHNComment *comment = [YHNComment new];
+        
+        // The first element is a <td> element containing a sole <img> element
+        // We can determine the nesting of a comment from this
+        comment.depth = [YHNScraper getNestingFromImgElement:
+                         ((TFHppleElement *)commentElement.children[0]).children[0]];
+        
+        TFHppleElement *contentTd = commentElement.children[2];
+        NSArray *contentNodes = contentTd.children;
+        
+        [YHNScraper fillComment:comment withHeader:contentNodes[0]];
+        // child 1 is an empty <br> tag
+        // child 2 is an empty text node
+        [YHNScraper fillComment:comment withContent:contentNodes[3]];
+        [YHNScraper fillComment:comment withReply:contentNodes[4]];
+        i++;
+        
+        [comments addObject:comment];
+    }
+    
+    NSArray *parentComments = [YHNScraper buildCommentTree:comments];
+
+    return [[YHNCommentsThread alloc] initWithArticle:article comments:parentComments];
+}
+
++ (NSInteger)getNestingFromImgElement:(TFHppleElement *)imgElement
+{
+    return [[imgElement objectForKey:@"width"] integerValue] / 40;
+}
+
++ (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)divElement
+{
+    TFHppleElement *spanElement = divElement.children[0];
+    NSArray *headerElements = spanElement.children;
+    
+    // <a> tag containing user info
+    TFHppleElement *userAnchor = headerElements[0];
+    NSString *user = [userAnchor text];
+    NSURL *userUrl = [NSURL URLWithString:[userAnchor objectForKey:@"href"]];
+    
+    // we also have a text node
+    // NSString *text = [spanElement text];
+    
+    // <a> tag containing permalink
+    TFHppleElement *linkAnchor = headerElements[2];
+    NSURL *permalink = [NSURL URLWithString:[linkAnchor objectForKey:@"href"]];
+    
+    comment.user = user;
+    comment.userUrl = userUrl;
+    comment.permalink = permalink;
+}
+
++ (void)fillComment:(YHNComment *)comment withContent:(TFHppleElement *)spanElement
+{
+    TFHppleElement *fontElement = spanElement.children[0];
+    
+    // TODO: This does not properly work because the text node is not the only node in
+    // the <font> element
+    // Need to figure out how to flatten these nodes >_<
+    NSString *text = [fontElement text];
+    comment.contents = text;
+}
+
++ (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)pElement
+{
+    TFHppleElement *fontElement = pElement.children[0];
+    TFHppleElement *uElement = fontElement.children[0];
+    TFHppleElement *anchor = uElement.children[0];
+    
+    NSString *urlString = [anchor objectForKey:@"href"];
+    comment.replyUrl = [NSURL URLWithString:urlString];
+}
+
++ (NSArray *)buildCommentTree:(NSArray *)comments
+{
+    YHNStack *commentStack = [[YHNArrayStack alloc] init];
+    NSMutableArray *parentComments = [[NSMutableArray alloc] init];
+
+    for (YHNComment *comment in comments) {
+        // In other words, if we have a very weird comment thread
+        if (comment.depth > [commentStack count]) {
+            [NSException raise:@"BadNestingException"
+                        format:@"Depth %d is too far from current nesting %d",
+                            comment.depth, [commentStack count]];
+        }
+
+        for (int i = [commentStack count]; i > comment.depth; i--) {
+            [commentStack pop];
+        }
+
+        if (comment.depth == 0) {
+            // If we're at depth 0, we have no Comment parent to add to
+            // (instead, the parent will technically be a CommentThread
+            [parentComments addObject:comment];
+        } else {
+            [[commentStack peek] addChild:comment];
+        }
+        [commentStack push:comment];
+    }
+
+    return parentComments;
+}
+
 // Given a string like "50 objects" or "34 bananas", extract the number and return it
 + (NSInteger)getQuantityFromString:(NSString *)string
 {
@@ -135,7 +253,7 @@
         // WARN: potential source of errors, but it's a good way to handle "5 comments" vs "discuss"
         return 0;
     }
-    
+
     return [[string substringToIndex:substringEnd] integerValue];
 }
 

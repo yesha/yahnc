@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E8D183EF54B00C2751D /* YHNUtils.m */; };
+		C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E921841CAD700C2751D /* YHNArrayStack.m */; };
 		C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCADE1839769600554B35 /* YHNFrontpage.m */; };
 		C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE1183999B000554B35 /* YHNCommentsThread.m */; };
 		C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE418399BAE00554B35 /* YHNComment.m */; };
@@ -44,12 +46,18 @@
 /* Begin PBXFileReference section */
 		0723994E0FBB46648DD51F0E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C41E4E8C183EF54B00C2751D /* YHNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNUtils.h; sourceTree = "<group>"; };
+		C41E4E8D183EF54B00C2751D /* YHNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNUtils.m; sourceTree = "<group>"; };
+		C41E4E911841CAD700C2751D /* YHNArrayStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNArrayStack.h; sourceTree = "<group>"; };
+		C41E4E921841CAD700C2751D /* YHNArrayStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNArrayStack.m; sourceTree = "<group>"; };
+		C41E4E941841D19400C2751D /* YHNStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNStack.h; sourceTree = "<group>"; };
 		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
 		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
 		C48FCAE0183999B000554B35 /* YHNCommentsThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNCommentsThread.h; sourceTree = "<group>"; };
 		C48FCAE1183999B000554B35 /* YHNCommentsThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNCommentsThread.m; sourceTree = "<group>"; };
 		C48FCAE318399BAE00554B35 /* YHNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNComment.h; sourceTree = "<group>"; };
 		C48FCAE418399BAE00554B35 /* YHNComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNComment.m; sourceTree = "<group>"; };
+		C48FCAE61839C44800554B35 /* YHNModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNModels.h; sourceTree = "<group>"; };
 		C4AE4BB81830BE3C0020C1CE /* YAHNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YAHNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +111,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C41E4E8F1841CA8E00C2751D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C41E4E8C183EF54B00C2751D /* YHNUtils.h */,
+				C41E4E8D183EF54B00C2751D /* YHNUtils.m */,
+				C41E4E911841CAD700C2751D /* YHNArrayStack.h */,
+				C41E4E921841CAD700C2751D /* YHNArrayStack.m */,
+				C41E4E941841D19400C2751D /* YHNStack.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		C41E4E901841CA9900C2751D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C4AE4BD31830BE3C0020C1CE /* YHNMasterViewController.h */,
+				C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */,
+				C4AE4BD61830BE3C0020C1CE /* YHNDetailViewController.h */,
+				C4AE4BD71830BE3C0020C1CE /* YHNDetailViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		C4AE4BAF1830BE3C0020C1CE = {
 			isa = PBXGroup;
 			children = (
@@ -138,15 +169,15 @@
 		C4AE4BC11830BE3C0020C1CE /* YAHNC */ = {
 			isa = PBXGroup;
 			children = (
-				C4E09EB4183948EF008A21F1 /* Models */,
 				C4AE4BCA1830BE3C0020C1CE /* YHNAppDelegate.h */,
 				C4AE4BCB1830BE3C0020C1CE /* YHNAppDelegate.m */,
+				C4E09EB818394D8C008A21F1 /* YHNScraper.h */,
+				C4E09EB918394D8C008A21F1 /* YHNScraper.m */,
+				C4E09EB4183948EF008A21F1 /* Models */,
+				C41E4E901841CA9900C2751D /* UI */,
+				C41E4E8F1841CA8E00C2751D /* Utilities */,
 				C4AE4BCD1830BE3C0020C1CE /* Main_iPhone.storyboard */,
 				C4AE4BD01830BE3C0020C1CE /* Main_iPad.storyboard */,
-				C4AE4BD31830BE3C0020C1CE /* YHNMasterViewController.h */,
-				C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */,
-				C4AE4BD61830BE3C0020C1CE /* YHNDetailViewController.h */,
-				C4AE4BD71830BE3C0020C1CE /* YHNDetailViewController.m */,
 				C4AE4BD91830BE3C0020C1CE /* Images.xcassets */,
 				C4AE4BC21830BE3C0020C1CE /* Supporting Files */,
 			);
@@ -187,14 +218,13 @@
 			children = (
 				C4E09EB518394A37008A21F1 /* YHNArticle.h */,
 				C4E09EB618394A37008A21F1 /* YHNArticle.m */,
-				C4E09EB818394D8C008A21F1 /* YHNScraper.h */,
-				C4E09EB918394D8C008A21F1 /* YHNScraper.m */,
 				C48FCADD1839769600554B35 /* YHNFrontpage.h */,
 				C48FCADE1839769600554B35 /* YHNFrontpage.m */,
 				C48FCAE0183999B000554B35 /* YHNCommentsThread.h */,
 				C48FCAE1183999B000554B35 /* YHNCommentsThread.m */,
 				C48FCAE318399BAE00554B35 /* YHNComment.h */,
 				C48FCAE418399BAE00554B35 /* YHNComment.m */,
+				C48FCAE61839C44800554B35 /* YHNModels.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -338,8 +368,10 @@
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
 				C4AE4BD81830BE3C0020C1CE /* YHNDetailViewController.m in Sources */,
 				C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */,
+				C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */,
 				C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */,
 				C4AE4BCC1830BE3C0020C1CE /* YHNAppDelegate.m in Sources */,
+				C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */,
 				C4E09EBA18394D8C008A21F1 /* YHNScraper.m in Sources */,
 				C4AE4BC81830BE3C0020C1CE /* main.m in Sources */,
 			);
