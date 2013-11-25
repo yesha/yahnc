@@ -20,7 +20,7 @@
 
 - (id)init
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.stack = [[NSMutableArray alloc] initWithCapacity:DEFAULT_STACK_CAPACITY];
     }
