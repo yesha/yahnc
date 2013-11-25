@@ -8,15 +8,25 @@
 
 #import "YHNArticle.h"
 
+@interface YHNArticle ()
+
+@property (nonatomic, readwrite) BOOL isShowHN;
+@property (nonatomic, readwrite) BOOL isAskHN;
+@property (nonatomic, readwrite) BOOL isJobPost;
+
+@end
+
 @implementation YHNArticle
 
 - (void)setTitle:(NSString *)title
 {
     if ([YHNUtils string:title startsWith:@"Show HN"]) {
-        _isShowHN = YES;
+        self.isShowHN = YES;
     } else if ([YHNUtils string:title startsWith:@"Ask HN"]) {
-        _isAskHN = YES;
+        self.isAskHN = YES;
     }
+
+    _title = title;
 }
 
 @end
