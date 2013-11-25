@@ -12,6 +12,8 @@
 	<dict>
 		<key>03AB871F-4C35-4E81-A242-F4FC597082D4</key>
 		<string>ssh://bitbucket.org/cbarcenas/cis-195-final-project.git</string>
+		<key>5A2051D8-5D54-47F0-AA7D-1785C6299D9D</key>
+		<string>ssh://github.com/topfunky/hpple.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>YAHNC.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>03AB871F-4C35-4E81-A242-F4FC597082D4</key>
 		<string>..</string>
+		<key>5A2051D8-5D54-47F0-AA7D-1785C6299D9D</key>
+		<string>../hpple</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://bitbucket.org/cbarcenas/cis-195-final-project.git</string>
@@ -28,6 +32,14 @@
 	<string>03AB871F-4C35-4E81-A242-F4FC597082D4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5A2051D8-5D54-47F0-AA7D-1785C6299D9D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>hpple</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
