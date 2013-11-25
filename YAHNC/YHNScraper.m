@@ -31,7 +31,7 @@ AFHTTPSessionManager *sessionManager;
     }
 }
 
-+ (void)loadFrontpage:(void (^) (YHNFrontpage *frontpage))success
++ (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
    withFailureHandler:(void (^) (NSError *error))failure
 {
     [sessionManager GET:@"news"
@@ -144,6 +144,22 @@ AFHTTPSessionManager *sessionManager;
     article.userUrl = userUrl;
     article.commentCount = commentCount;
     article.commentsUrl = commentsUrl;
+}
+
++ (void)loadThreadAsync:(YHNArticle *)article
+                success:(void (^)(YHNCommentsThread *))success
+                failure:(void (^)(NSError *))failure
+{
+    [sessionManager GET:@"item"
+             parameters:@{@"id": @"6789905"}
+                success:^(NSURLSessionDataTask *task, id responseObject) {
+                    success([YHNScraper loadThread:article withData:responseObject]);
+                }
+                failure:^(NSURLSessionDataTask *task, id responseObject) {
+                    failure(task.error);
+                }
+     ];
+
 }
 
 + (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData

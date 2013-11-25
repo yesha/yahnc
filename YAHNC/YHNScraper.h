@@ -13,9 +13,11 @@
 
 @interface YHNScraper : NSObject
 
-+ (void)loadFrontpage:(void (^) (YHNFrontpage *frontpage))success
-   withFailureHandler:(void (^) (NSError *error))failure;
-+ (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData;
-+ (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData;
++ (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
+        withFailureHandler:(void (^) (NSError *error))failure;
+
++ (void)loadThreadAsync:(YHNArticle *)article
+                success:(void (^) (YHNCommentsThread *thread))success
+                failure:(void (^) (NSError *error))failure;
 
 @end
