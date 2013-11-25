@@ -17,4 +17,12 @@
     comment.parent = self;
 }
 
+- (NSMutableArray *)children
+{
+    if (_children == nil) {
+        _children = [[NSMutableArray alloc] init];
+    }
+    return _children;
+}
+
 @end
