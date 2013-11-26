@@ -31,6 +31,8 @@ AFHTTPSessionManager *sessionManager;
     }
 }
 
+#pragma Methods for loading the frontpage
+
 + (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
    withFailureHandler:(void (^) (NSError *error))failure
 {
@@ -146,6 +148,8 @@ AFHTTPSessionManager *sessionManager;
     article.commentsUrl = commentsUrl;
 }
 
+#pragma Methods for loading comment threads
+
 + (void)loadThreadAsync:(YHNArticle *)article
                 success:(void (^)(YHNCommentsThread *))success
                 failure:(void (^)(NSError *))failure
@@ -180,7 +184,7 @@ AFHTTPSessionManager *sessionManager;
         // The first element is a <td> element containing a sole <img> element
         // We can determine the nesting of a comment from this
         comment.depth = [YHNScraper getNestingFromImgElement:
-                         ((TFHppleElement *)commentElement.children[0]).children[0]];
+                         [[commentElement firstChild] firstChild]];
         
         TFHppleElement *contentTd = commentElement.children[2];
         NSArray *contentNodes = contentTd.children;
@@ -207,7 +211,7 @@ AFHTTPSessionManager *sessionManager;
 
 + (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)divElement
 {
-    TFHppleElement *spanElement = divElement.children[0];
+    TFHppleElement *spanElement = [divElement firstChild];
     NSArray *headerElements = spanElement.children;
     
     // <a> tag containing user info
@@ -238,9 +242,8 @@ AFHTTPSessionManager *sessionManager;
 
 + (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)pElement
 {
-    TFHppleElement *fontElement = pElement.children[0];
-    TFHppleElement *uElement = fontElement.children[0];
-    TFHppleElement *anchor = uElement.children[0];
+    // <p><font><u><a href=...>reply</a></u></font></p>
+    TFHppleElement *anchor = [[[pElement firstChild] firstChild] firstChild];
     
     NSString *urlString = [anchor objectForKey:@"href"];
     comment.replyUrl = [NSURL URLWithString:urlString];
