@@ -229,13 +229,11 @@ AFHTTPSessionManager *sessionManager;
 
 + (void)fillComment:(YHNComment *)comment withContent:(TFHppleElement *)spanElement
 {
-    TFHppleElement *fontElement = spanElement.children[0];
-    
-    // TODO: This does not properly work because the text node is not the only node in
-    // the <font> element
-    // Need to figure out how to flatten these nodes >_<
-    NSString *text = [fontElement text];
-    comment.contents = text;
+    // I wonder how well this hack will work
+    NSError *error = [comment setContentsWithHtml:[spanElement raw]];
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
 }
 
 + (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)pElement

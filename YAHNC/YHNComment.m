@@ -25,4 +25,27 @@
     return _children;
 }
 
+// Convenience method for setting the content with an NSString representing HTML content
+// Note that this won't work in iOS <7
+- (NSError *)setContentsWithHtml:(NSString *)html
+{
+    NSData *htmlData = [html dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *attributedOptions = \
+    @{
+      NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+      NSCharacterEncodingDocumentAttribute: [NSNumber numberWithInt:NSUTF8StringEncoding]
+      };
+    NSError *error;
+
+    NSAttributedString *attributedText = [[NSAttributedString alloc]
+                                          initWithData:htmlData
+                                          options:attributedOptions
+                                          documentAttributes:nil
+                                          error:&error];
+
+    self.contents = attributedText;
+
+    return error;
+}
+
 @end
