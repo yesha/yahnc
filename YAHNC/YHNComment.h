@@ -30,4 +30,6 @@
 
 - (NSError *)setContentsWithHtml:(NSString *)html;
 
+- (YHNComment *)childCommentAtIndexPath:(NSIndexPath *)indexPath;
+
 @end

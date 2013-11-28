@@ -29,4 +29,22 @@
     return self;
 }
 
+- (YHNComment *)commentWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger first = [indexPath indexAtPosition:0];
+    if (first >= [self.parentComments count]) {
+        return nil;
+    }
+    YHNComment *comment = self.parentComments[first];
+
+    NSUInteger indexes[[indexPath length]];
+    [indexPath getIndexes:indexes];
+
+    // &indexes[1] essentially "pops" off the first element
+    NSIndexPath *poppedPath = [NSIndexPath indexPathWithIndexes:&indexes[1]
+                                                         length:([indexPath length] - 1)];
+
+    return [comment childCommentAtIndexPath:poppedPath];
+}
+
 @end

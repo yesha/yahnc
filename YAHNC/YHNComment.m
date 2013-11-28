@@ -85,4 +85,20 @@
                     usingBlock:eachFont];
 }
 
+- (YHNComment *)childCommentAtIndexPath:(NSIndexPath *)indexPath
+{
+    YHNComment *comment = self;
+
+    for (NSUInteger i = 0; i < [indexPath length]; i++) {
+        NSUInteger index = [indexPath indexAtPosition:i];
+        NSArray *children = comment.children;
+        if (index >= [children count]) {
+            return nil;
+        }
+        comment = children[index];
+    }
+
+    return comment;
+}
+
 @end
