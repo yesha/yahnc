@@ -8,12 +8,16 @@
 
 #import "YHNUtils.h"
 
-@implementation YHNUtils
+@implementation NSString (YHNStringUtilities)
 
-+ (BOOL)string:(NSString *)string startsWith:(NSString *)substring
+- (BOOL)startsWith:(NSString *)substring
 {
-    NSRange range = [string rangeOfString:substring options:NSAnchoredSearch];
+    NSRange range = [self rangeOfString:substring options:NSAnchoredSearch];
     return range.location != NSNotFound;
 }
+
+@end
+
+@implementation YHNUtils
 
 @end

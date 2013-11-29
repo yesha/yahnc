@@ -20,9 +20,9 @@
 
 - (void)setTitle:(NSString *)title
 {
-    if ([YHNUtils string:title startsWith:@"Show HN"]) {
+    if ([title startsWith:@"Show HN"]) {
         self.isShowHN = YES;
-    } else if ([YHNUtils string:title startsWith:@"Ask HN"]) {
+    } else if ([title startsWith:@"Ask HN"]) {
         self.isAskHN = YES;
     }
 

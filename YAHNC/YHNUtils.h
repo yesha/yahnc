@@ -11,8 +11,12 @@
 #define mustOverride() @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"%s must be overridden in a subclass/category", __PRETTY_FUNCTION__] userInfo:nil]
 #define methodNotImplemented() mustOverride()
 
-@interface YHNUtils : NSObject
+@interface NSString (YHNStringUtilities)
 
-+ (BOOL)string:(NSString *)string startsWith:(NSString *)substring;
+- (BOOL)startsWith:(NSString *)substring;
+
+@end
+
+@interface YHNUtils : NSObject
 
 @end
