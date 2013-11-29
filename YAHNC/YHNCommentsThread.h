@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 
 #import "YHNArticle.h"
+#import "YHNComment.h"
 
 @interface YHNCommentsThread : NSObject
 
 @property (nonatomic, strong, readonly) YHNArticle *article;
-@property (nonatomic, strong) NSArray *parentComments;
+@property (nonatomic, strong, readonly) NSArray *parentComments;
+
+- (id)initWithArticle:(YHNArticle *)article comments:(NSArray *)parentComments;
+
+- (YHNComment *)commentWithIndexPath:(NSIndexPath *)indexPath;
 
 @end

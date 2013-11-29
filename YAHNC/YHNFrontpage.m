@@ -8,13 +8,20 @@
 
 #import "YHNFrontpage.h"
 
+@interface YHNFrontpage ()
+
+@property (nonatomic, strong, readwrite) NSArray *articles;
+@property (nonatomic, strong, readwrite) NSURL *moreUrl;
+
+@end
+
 @implementation YHNFrontpage
 
 - (id)initWithArticles:(NSArray *)articles moreUrl:(NSURL *)moreUrl
 {
     if (self = [self init]) {
-        _articles = articles;
-        _moreUrl = moreUrl;
+        self.articles = articles;
+        self.moreUrl = moreUrl;
     }
     
     return self;

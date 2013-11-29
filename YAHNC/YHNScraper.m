@@ -6,19 +6,45 @@
 //  Copyright (c) 2013 YAHNC. All rights reserved.
 //
 
+#import "AFNetworking.h"
 #import "TFHpple.h"
 
-#import "YHNArticle.h"
+#import "YHNModels.h"
 #import "YHNScraper.h"
-
-#define BASE_URL "https://news.ycombinator.com/"
+#import "YHNStack.h"
+#import "YHNArrayStack.h"
 
 @implementation YHNScraper
 
-+ (YHNFrontpage *)loadFrontpage
+NSString             *const BASE_URL = @"https://news.ycombinator.com/";
+NSURL                *baseUrl;
+AFHTTPSessionManager *sessionManager;
+
++ (void)initialize
 {
-    return [YHNScraper loadFrontpageWithData:
-            [NSData dataWithContentsOfURL:[YHNScraper makeEndpoint:@"news"]]];
+    if (self == [YHNScraper class])
+    {
+        baseUrl        = [NSURL URLWithString:BASE_URL];
+        sessionManager = [[AFHTTPSessionManager manager] initWithBaseURL:baseUrl];
+        
+        sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
+}
+
+#pragma Methods for loading the frontpage
+
++ (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
+   withFailureHandler:(void (^) (NSError *error))failure
+{
+    [sessionManager GET:@"news"
+             parameters:nil
+                success:^(NSURLSessionDataTask *task, id responseObject) {
+                    success([YHNScraper loadFrontpageWithData:(NSData *)responseObject]);
+                }
+                failure:^(NSURLSessionDataTask *task, id responseObject) {
+                    failure(task.error);
+                }
+     ];
 }
 
 + (YHNFrontpage *)loadFrontpageWithData:(NSData *)htmlData
@@ -53,7 +79,7 @@
     TFHppleElement *moreAnchor = [moreTd childrenWithTagName:@"a"][0];
     // Apparently returns "newsX" (where X is a number). This behavior seems to be unique on
     // mobile Safari.
-    NSURL *moreUrl = [YHNScraper makeEndpoint:moreAnchor.attributes[@"href"]];
+    NSURL *moreUrl = [baseUrl URLByAppendingPathComponent:moreAnchor.attributes[@"href"]];
     
     YHNFrontpage *frontpage = [[YHNFrontpage alloc] initWithArticles:articles moreUrl:moreUrl];
     return frontpage;
@@ -107,13 +133,13 @@
     // child 2 has user information
     TFHppleElement *userElement = children[2];
     NSString *user = [userElement text];
-    NSURL *userUrl = [YHNScraper makeEndpoint:userElement.attributes[@"href"]];
+    NSURL *userUrl = [baseUrl URLByAppendingPathComponent:userElement.attributes[@"href"]];
     
     // child 3 has time information (TODO we'll get this later)
     // child 4 has comments information
     TFHppleElement *commentsElement = children[4];
     NSInteger commentCount = [YHNScraper getQuantityFromString:[commentsElement text]];
-    NSURL *commentsUrl = [YHNScraper makeEndpoint:commentsElement.attributes[@"href"]];
+    NSURL *commentsUrl = [baseUrl URLByAppendingPathComponent:commentsElement.attributes[@"href"]];
     
     article.score = score;
     article.user = user;
@@ -122,9 +148,150 @@
     article.commentsUrl = commentsUrl;
 }
 
-+ (NSURL *)makeEndpoint:(NSString *)endpoint
+#pragma Methods for loading comment threads
+
++ (void)loadThreadAsync:(YHNArticle *)article
+                success:(void (^)(YHNCommentsThread *))success
+                failure:(void (^)(NSError *))failure
 {
-    return [NSURL URLWithString:[@BASE_URL stringByAppendingString:endpoint]];
+    [sessionManager GET:@"item"
+             parameters:@{@"id": @"6789905"}
+                success:^(NSURLSessionDataTask *task, id responseObject) {
+                    success([YHNScraper loadThread:article withData:responseObject]);
+                }
+                failure:^(NSURLSessionDataTask *task, id responseObject) {
+                    failure(task.error);
+                }
+     ];
+
+}
+
++ (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData
+{
+    TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
+
+    // Base XPath expression to reach the table containing article rows
+    NSString *baseXPathQuery = @"//center/table/tr[3]/td/table[2]/tr/td/table/tr";
+    NSArray *commentNodes = [parser searchWithXPathQuery:baseXPathQuery];
+
+    NSMutableArray *comments = [NSMutableArray new];
+
+    for (TFHppleElement *commentElement in commentNodes) {
+        YHNComment *comment = [YHNComment new];
+        
+        // The first element is a <td> element containing a sole <img> element
+        // We can determine the nesting of a comment from this
+        comment.depth = [YHNScraper getNestingFromImgElement:
+                         [[commentElement firstChild] firstChild]];
+
+        TFHppleElement *contentTd = [[commentElement childrenWithClassName:@"default"]
+                                     firstObject];
+
+        TFHppleElement *commentContent = [[contentTd childrenWithClassName:@"comment"]
+                                          firstObject];
+
+        if ([YHNScraper commentIsDeleted:commentContent]) {
+            comment.deleted = YES;
+        } else {
+            // Header (contains username, permalink, time)
+            NSString *headerXPathQuery = @"//div/span[@class=\"comhead\"]";
+            TFHppleElement *headerNode = [[contentTd searchWithXPathQuery:headerXPathQuery]
+                                          firstObject];
+            [YHNScraper fillComment:comment withHeader:headerNode];
+
+            // Main comment content
+            [YHNScraper fillComment:comment withContent:commentContent];
+
+            // Reply link (<p><font><u><a href=...>reply</a></u></font></p>)
+            NSString *replyXPathQuery = @"//p[last()]/font[@size=1]/u/a";
+            NSArray *replyNode = [contentTd searchWithXPathQuery:replyXPathQuery];
+            if ([replyNode count] > 0) {
+                [YHNScraper fillComment:comment withReply:[replyNode firstObject]];
+            }
+        }
+
+        [comments addObject:comment];
+    }
+    
+    NSArray *parentComments = [YHNScraper buildCommentTree:comments];
+
+    return [[YHNCommentsThread alloc] initWithArticle:article comments:parentComments];
+}
+
++ (NSInteger)getNestingFromImgElement:(TFHppleElement *)imgElement
+{
+    return [[imgElement objectForKey:@"width"] integerValue] / 40;
+}
+
++ (BOOL)commentIsDeleted:(TFHppleElement *)commentNode
+{
+    return [[commentNode text] isEqualToString:@"[deleted]"];
+}
+
++ (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)spanElement
+{
+    NSArray *headerElements = spanElement.children;
+    
+    // <a> tag containing user info
+    TFHppleElement *userAnchor = headerElements[0];
+    NSString *user = [userAnchor text];
+    NSURL *userUrl = [NSURL URLWithString:[userAnchor objectForKey:@"href"]];
+    
+    // we also have a text node
+    // NSString *text = [spanElement text];
+    
+    // <a> tag containing permalink
+    TFHppleElement *linkAnchor = headerElements[2];
+    NSURL *permalink = [NSURL URLWithString:[linkAnchor objectForKey:@"href"]];
+    
+    comment.user = user;
+    comment.userUrl = userUrl;
+    comment.permalink = permalink;
+}
+
++ (void)fillComment:(YHNComment *)comment withContent:(TFHppleElement *)spanElement
+{
+    // I wonder how well this hack will work
+    NSError *error = [comment setContentsWithHtml:[spanElement raw]];
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
+}
+
++ (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)anchor
+{
+    NSString *urlString = [anchor objectForKey:@"href"];
+    comment.replyUrl = [NSURL URLWithString:urlString];
+}
+
++ (NSArray *)buildCommentTree:(NSArray *)comments
+{
+    YHNStack *commentStack = [[YHNArrayStack alloc] init];
+    NSMutableArray *parentComments = [[NSMutableArray alloc] init];
+
+    for (YHNComment *comment in comments) {
+        // In other words, if we have a very weird comment thread
+        if (comment.depth > [commentStack count]) {
+            [NSException raise:@"BadNestingException"
+                        format:@"Depth %ld is too far from current nesting %lu",
+                            (long)comment.depth, (unsigned long)[commentStack count]];
+        }
+
+        for (int i = (int)[commentStack count]; i > comment.depth; i--) {
+            [commentStack pop];
+        }
+
+        if (comment.depth == 0) {
+            // If we're at depth 0, we have no Comment parent to add to
+            // (instead, the parent will technically be a CommentThread
+            [parentComments addObject:comment];
+        } else {
+            [[commentStack peek] addChild:comment];
+        }
+        [commentStack push:comment];
+    }
+
+    return parentComments;
 }
 
 // Given a string like "50 objects" or "34 bananas", extract the number and return it
@@ -135,7 +302,7 @@
         // WARN: potential source of errors, but it's a good way to handle "5 comments" vs "discuss"
         return 0;
     }
-    
+
     return [[string substringToIndex:substringEnd] integerValue];
 }
 

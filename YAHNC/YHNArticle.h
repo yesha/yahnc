@@ -23,4 +23,8 @@
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) NSURL *userUrl;
 
+@property (nonatomic, readonly) BOOL isShowHN;
+@property (nonatomic, readonly) BOOL isAskHN;
+@property (nonatomic, readonly) BOOL isJobPost;
+
 @end
