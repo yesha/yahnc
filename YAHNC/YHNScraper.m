@@ -209,6 +209,11 @@ AFHTTPSessionManager *sessionManager;
     return [[imgElement objectForKey:@"width"] integerValue] / 40;
 }
 
++ (BOOL)commentIsDeleted:(TFHppleElement *)commentNode
+{
+    return [[commentNode text] isEqualToString:@"[deleted]"];
+}
+
 + (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)divElement
 {
     TFHppleElement *spanElement = [divElement firstChild];

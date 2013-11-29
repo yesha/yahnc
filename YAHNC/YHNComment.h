@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSMutableArray *children;
 @property (nonatomic) NSInteger depth;
 
+@property (nonatomic) BOOL deleted;
+
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) NSURL *userUrl;
 
