@@ -175,27 +175,41 @@ AFHTTPSessionManager *sessionManager;
     NSArray *commentNodes = [parser searchWithXPathQuery:baseXPathQuery];
 
     NSMutableArray *comments = [NSMutableArray new];
-    
-    int i = 0;
+
     for (TFHppleElement *commentElement in commentNodes) {
-        NSLog(@"%d", i);
         YHNComment *comment = [YHNComment new];
         
         // The first element is a <td> element containing a sole <img> element
         // We can determine the nesting of a comment from this
         comment.depth = [YHNScraper getNestingFromImgElement:
                          [[commentElement firstChild] firstChild]];
-        
-        TFHppleElement *contentTd = commentElement.children[2];
-        NSArray *contentNodes = contentTd.children;
-        
-        [YHNScraper fillComment:comment withHeader:contentNodes[0]];
-        // child 1 is an empty <br> tag
-        // child 2 is an empty text node
-        [YHNScraper fillComment:comment withContent:contentNodes[3]];
-        [YHNScraper fillComment:comment withReply:contentNodes[4]];
-        i++;
-        
+
+        TFHppleElement *contentTd = [[commentElement childrenWithClassName:@"default"]
+                                     firstObject];
+
+        TFHppleElement *commentContent = [[contentTd childrenWithClassName:@"comment"]
+                                          firstObject];
+
+        if ([YHNScraper commentIsDeleted:commentContent]) {
+            comment.deleted = YES;
+        } else {
+            // Header (contains username, permalink, time)
+            NSString *headerXPathQuery = @"//div/span[@class=\"comhead\"]";
+            TFHppleElement *headerNode = [[contentTd searchWithXPathQuery:headerXPathQuery]
+                                          firstObject];
+            [YHNScraper fillComment:comment withHeader:headerNode];
+
+            // Main comment content
+            [YHNScraper fillComment:comment withContent:commentContent];
+
+            // Reply link (<p><font><u><a href=...>reply</a></u></font></p>)
+            NSString *replyXPathQuery = @"//p[last()]/font[@size=1]/u/a";
+            NSArray *replyNode = [contentTd searchWithXPathQuery:replyXPathQuery];
+            if ([replyNode count] > 0) {
+                [YHNScraper fillComment:comment withReply:[replyNode firstObject]];
+            }
+        }
+
         [comments addObject:comment];
     }
     
@@ -214,9 +228,8 @@ AFHTTPSessionManager *sessionManager;
     return [[commentNode text] isEqualToString:@"[deleted]"];
 }
 
-+ (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)divElement
++ (void)fillComment:(YHNComment *)comment withHeader:(TFHppleElement *)spanElement
 {
-    TFHppleElement *spanElement = [divElement firstChild];
     NSArray *headerElements = spanElement.children;
     
     // <a> tag containing user info
@@ -245,11 +258,8 @@ AFHTTPSessionManager *sessionManager;
     }
 }
 
-+ (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)pElement
++ (void)fillComment:(YHNComment *)comment withReply:(TFHppleElement *)anchor
 {
-    // <p><font><u><a href=...>reply</a></u></font></p>
-    TFHppleElement *anchor = [[[pElement firstChild] firstChild] firstChild];
-    
     NSString *urlString = [anchor objectForKey:@"href"];
     comment.replyUrl = [NSURL URLWithString:urlString];
 }
