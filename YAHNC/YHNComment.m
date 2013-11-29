@@ -65,8 +65,6 @@
     id eachFont = ^(id value, NSRange range, BOOL *stop) {
         UIFont *currentFont = value;
         UIFont *replacementFont = nil;
-        NSLog(@"%@", currentFont.familyName);
-        NSLog(@"%@", currentFont.fontName);
 
         if ([currentFont.familyName isEqualToString:@"Times New Roman"]) {
             if ([currentFont.fontName rangeOfString:@"italic"

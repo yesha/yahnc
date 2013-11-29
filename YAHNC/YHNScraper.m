@@ -273,11 +273,11 @@ AFHTTPSessionManager *sessionManager;
         // In other words, if we have a very weird comment thread
         if (comment.depth > [commentStack count]) {
             [NSException raise:@"BadNestingException"
-                        format:@"Depth %d is too far from current nesting %d",
-                            comment.depth, [commentStack count]];
+                        format:@"Depth %ld is too far from current nesting %lu",
+                            (long)comment.depth, (unsigned long)[commentStack count]];
         }
 
-        for (int i = [commentStack count]; i > comment.depth; i--) {
+        for (int i = (int)[commentStack count]; i > comment.depth; i--) {
             [commentStack pop];
         }
 
