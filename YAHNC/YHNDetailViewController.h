@@ -14,5 +14,4 @@
 
 @property (strong, nonatomic) YHNArticle *detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end
