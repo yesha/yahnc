@@ -148,7 +148,7 @@ AFHTTPSessionManager *sessionManager;
     article.commentsUrl = commentsUrl;
 }
 
-#pragma Methods for loading comment threads
+#pragma mark Methods for loading comment threads
 
 + (void)loadThreadAsync:(YHNArticle *)article
                 success:(void (^)(YHNCommentsThread *))success

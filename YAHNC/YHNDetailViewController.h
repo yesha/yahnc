@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "YHNArticle.h"
+
 @interface YHNDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) YHNArticle *detailItem;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

@@ -42,6 +42,14 @@
 
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [self.detailItem description];
+        
+        self.postTitle.text   = [self.detailItem title];
+        self.postVoteNum.text = [NSString stringWithFormat:@"%i",
+                                 [self.detailItem score]];
+        // TODO timestamp
+        self.postCommentNum.text = [NSString stringWithFormat:@"%i comments",
+                                    [self.detailItem commentCount]];
+        // TODO link?
     }
 }
 

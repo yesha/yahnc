@@ -112,16 +112,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = _articles[indexPath.row];
+        YHNArticle *object = _articles[indexPath.row];
         self.detailViewController.detailItem = object;
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showPostDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _articles[indexPath.row];
+        YHNArticle *object = _articles[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
