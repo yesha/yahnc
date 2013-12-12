@@ -12,6 +12,6 @@
 
 @interface YHNDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) YHNArticle *detailItem;
+@property (strong, nonatomic) YHNArticle *article;
 
 @end

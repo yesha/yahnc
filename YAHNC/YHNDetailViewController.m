@@ -7,6 +7,8 @@
 //
 
 #import "YHNDetailViewController.h"
+#import "YHNScraper.h"
+#import "YHNModels.h"
 
 @interface YHNDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -15,6 +17,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *postTime;
 @property (strong, nonatomic) IBOutlet UILabel *postCommentNum;
 @property (strong, nonatomic) IBOutlet UILabel *postLink;
+
+@property (strong, nonatomic) YHNCommentsThread *thread;
 - (void)configureView;
 @end
 
@@ -22,13 +26,10 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)setArticle:(id)article
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
+    if (_article != article) {
+        _article = article;
     }
 
     if (self.masterPopoverController != nil) {
@@ -36,17 +37,27 @@
     }        
 }
 
+- (void)reloadData
+{
+    [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
+        self.thread = thread;
+        NSLog(@"Thread loaded");
+        [self configureView];
+    } failure:^(NSError *error) {
+        NSLog(@"Well, fuck... %@", error);
+    }];
+}
+
 - (void)configureView
 {
     // Update the user interface for the detail item.
-
-    if (self.detailItem) {
-        self.postTitle.text   = [self.detailItem title];
+    if (self.article) {
+        self.postTitle.text   = [self.article title];
         self.postVoteNum.text = [NSString stringWithFormat:@"%li",
-                                 (long)[self.detailItem score]];
+                                 (long)[self.article score]];
         // TODO timestamp
         self.postCommentNum.text = [NSString stringWithFormat:@"%li comments",
-                                    (long)[self.detailItem commentCount]];
+                                    (long)[self.article commentCount]];
         // TODO link?
     }
 }
@@ -55,7 +66,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+    [self reloadData];
 }
 
 - (void)didReceiveMemoryWarning

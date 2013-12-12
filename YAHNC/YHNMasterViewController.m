@@ -113,7 +113,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         YHNArticle *object = _articles[indexPath.row];
-        self.detailViewController.detailItem = object;
+        self.detailViewController.article = object;
     }
 }
 
@@ -121,8 +121,8 @@
 {
     if ([[segue identifier] isEqualToString:@"showPostDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        YHNArticle *object = _articles[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+        YHNArticle *article = _articles[indexPath.row];
+        [[segue destinationViewController] setArticle:article];
     }
 }
 
