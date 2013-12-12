@@ -41,8 +41,6 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-        
         self.postTitle.text   = [self.detailItem title];
         self.postVoteNum.text = [NSString stringWithFormat:@"%i",
                                  [self.detailItem score]];
