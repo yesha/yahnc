@@ -95,9 +95,9 @@
         UILabel *postCommentCount = (UILabel*)[cell viewWithTag:4];
         
         postTitle.text = [article title];
-        postScore.text = [NSString stringWithFormat:@"%d", [article score]];
-        postCommentCount.text = [NSString stringWithFormat:@"%d comments",
-                                 [article commentCount]];
+        postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
+        postCommentCount.text = [NSString stringWithFormat:@"%ld comments",
+                                 (long)[article commentCount]];
  
     }
 

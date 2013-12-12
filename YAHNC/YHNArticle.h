@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSString *originSite;
-@property (nonatomic, strong) NSURL *commentsUrl;
+@property (nonatomic, strong) NSString *commentsId;
 
 @property (nonatomic) NSInteger rank;
 @property (nonatomic) NSInteger score;
@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSString *timeInfo;
 
 @property (nonatomic, strong) NSString *user;
-@property (nonatomic, strong) NSURL *userUrl;
+@property (nonatomic, strong) NSString *userId;
 
 @property (nonatomic, readonly) BOOL isShowHN;
 @property (nonatomic, readonly) BOOL isAskHN;

@@ -8,6 +8,7 @@
 
 #import "AFNetworking.h"
 #import "TFHpple.h"
+#import "DDURLParser.h"
 
 #import "YHNModels.h"
 #import "YHNScraper.h"
@@ -31,7 +32,7 @@ AFHTTPSessionManager *sessionManager;
     }
 }
 
-#pragma Methods for loading the frontpage
+#pragma mark - Methods for loading the frontpage
 
 + (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
    withFailureHandler:(void (^) (NSError *error))failure
@@ -133,29 +134,29 @@ AFHTTPSessionManager *sessionManager;
     // child 2 has user information
     TFHppleElement *userElement = children[2];
     NSString *user = [userElement text];
-    NSURL *userUrl = [baseUrl URLByAppendingPathComponent:userElement.attributes[@"href"]];
+    NSString *userUrl = userElement.attributes[@"href"];
     
     // child 3 has time information (TODO we'll get this later)
     // child 4 has comments information
     TFHppleElement *commentsElement = children[4];
     NSInteger commentCount = [YHNScraper getQuantityFromString:[commentsElement text]];
-    NSURL *commentsUrl = [baseUrl URLByAppendingPathComponent:commentsElement.attributes[@"href"]];
+    NSString *commentsUrl = commentsElement.attributes[@"href"];
     
     article.score = score;
     article.user = user;
-    article.userUrl = userUrl;
+    article.userId = [[DDURLParser parserWithURLString:userUrl] valueForVariable:@"id"];
     article.commentCount = commentCount;
-    article.commentsUrl = commentsUrl;
+    article.commentsId = [[DDURLParser parserWithURLString:commentsUrl] valueForVariable:@"id"];
 }
 
-#pragma mark Methods for loading comment threads
+#pragma mark - Methods for loading comment threads
 
 + (void)loadThreadAsync:(YHNArticle *)article
                 success:(void (^)(YHNCommentsThread *))success
                 failure:(void (^)(NSError *))failure
 {
     [sessionManager GET:@"item"
-             parameters:@{@"id": @"6789905"}
+             parameters:@{@"id": article.commentsId}
                 success:^(NSURLSessionDataTask *task, id responseObject) {
                     success([YHNScraper loadThread:article withData:responseObject]);
                 }
@@ -163,7 +164,6 @@ AFHTTPSessionManager *sessionManager;
                     failure(task.error);
                 }
      ];
-
 }
 
 + (YHNCommentsThread *)loadThread:(YHNArticle *)article withData:(NSData *)htmlData
@@ -207,6 +207,8 @@ AFHTTPSessionManager *sessionManager;
             NSArray *replyNode = [contentTd searchWithXPathQuery:replyXPathQuery];
             if ([replyNode count] > 0) {
                 [YHNScraper fillComment:comment withReply:[replyNode firstObject]];
+            } else {
+                NSLog(@"DEBUG: comment %@ has no reply link (probably new)", comment.permalink);
             }
         }
 
