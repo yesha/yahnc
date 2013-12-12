@@ -32,7 +32,7 @@ AFHTTPSessionManager *sessionManager;
     }
 }
 
-#pragma Methods for loading the frontpage
+#pragma mark - Methods for loading the frontpage
 
 + (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
    withFailureHandler:(void (^) (NSError *error))failure
@@ -149,7 +149,7 @@ AFHTTPSessionManager *sessionManager;
     article.commentsId = [[DDURLParser parserWithURLString:commentsUrl] valueForVariable:@"id"];
 }
 
-#pragma mark Methods for loading comment threads
+#pragma mark - Methods for loading comment threads
 
 + (void)loadThreadAsync:(YHNArticle *)article
                 success:(void (^)(YHNCommentsThread *))success
