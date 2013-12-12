@@ -11,7 +11,7 @@
 
 #import "YHNMasterViewController.h"
 
-#import "YHNDetailViewController.h"
+#import "YHNThreadViewController.h"
 
 @interface YHNMasterViewController () {
     NSArray *_articles;
@@ -49,7 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.detailViewController = (YHNDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.threadViewController = (YHNThreadViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self reloadData];
 }
 
@@ -113,7 +113,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         YHNArticle *object = _articles[indexPath.row];
-        self.detailViewController.article = object;
+        self.threadViewController.article = object;
     }
 }
 

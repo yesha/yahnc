@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class YHNDetailViewController;
+@class YHNThreadViewController;
 
 @interface YHNMasterViewController : UITableViewController
 
-@property (strong, nonatomic) YHNDetailViewController *detailViewController;
+@property (strong, nonatomic) YHNThreadViewController *threadViewController;
 
 @end
