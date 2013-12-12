@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E8D183EF54B00C2751D /* YHNUtils.m */; };
 		C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E921841CAD700C2751D /* YHNArrayStack.m */; };
-		C43D86FC18447B0D0086D920 /* YHNStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C43D86FB18447B0D0086D920 /* YHNStack.m */; };
 		C430452A184303FB00C780BB /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4304529184303FB00C780BB /* libxml2.2.dylib */; };
 		C430452F184304C700C780BB /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = C430452C184304C700C780BB /* TFHpple.m */; };
 		C4304530184304C700C780BB /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C430452E184304C700C780BB /* TFHppleElement.m */; };
 		C43045341843050200C780BB /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = C43045321843050200C780BB /* XPathQuery.m */; };
+		C43D86FC18447B0D0086D920 /* YHNStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C43D86FB18447B0D0086D920 /* YHNStack.m */; };
 		C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCADE1839769600554B35 /* YHNFrontpage.m */; };
 		C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE1183999B000554B35 /* YHNCommentsThread.m */; };
 		C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE418399BAE00554B35 /* YHNComment.m */; };
+		C4A583BB1848583700B47215 /* DDURLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A583BA1848583700B47215 /* DDURLParser.m */; };
 		C4AE4BBC1830BE3C0020C1CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */; };
 		C4AE4BBE1830BE3C0020C1CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */; };
 		C4AE4BC01830BE3C0020C1CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBF1830BE3C0020C1CE /* UIKit.framework */; };
@@ -56,7 +57,6 @@
 		C41E4E911841CAD700C2751D /* YHNArrayStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNArrayStack.h; sourceTree = "<group>"; };
 		C41E4E921841CAD700C2751D /* YHNArrayStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNArrayStack.m; sourceTree = "<group>"; };
 		C41E4E941841D19400C2751D /* YHNStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNStack.h; sourceTree = "<group>"; };
-		C43D86FB18447B0D0086D920 /* YHNStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHNStack.m; path = YAHNC/YHNStack.m; sourceTree = "<group>"; };
 		C4304529184303FB00C780BB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		C430452B184304C700C780BB /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFHpple.h; path = hpple/TFHpple.h; sourceTree = SOURCE_ROOT; };
 		C430452C184304C700C780BB /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFHpple.m; path = hpple/TFHpple.m; sourceTree = SOURCE_ROOT; };
@@ -64,6 +64,7 @@
 		C430452E184304C700C780BB /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFHppleElement.m; path = hpple/TFHppleElement.m; sourceTree = SOURCE_ROOT; };
 		C43045321843050200C780BB /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathQuery.m; path = hpple/XPathQuery.m; sourceTree = SOURCE_ROOT; };
 		C43045331843050200C780BB /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = hpple/XPathQuery.h; sourceTree = SOURCE_ROOT; };
+		C43D86FB18447B0D0086D920 /* YHNStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHNStack.m; path = YAHNC/YHNStack.m; sourceTree = "<group>"; };
 		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
 		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
 		C48FCAE0183999B000554B35 /* YHNCommentsThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNCommentsThread.h; sourceTree = "<group>"; };
@@ -71,6 +72,8 @@
 		C48FCAE318399BAE00554B35 /* YHNComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNComment.h; sourceTree = "<group>"; };
 		C48FCAE418399BAE00554B35 /* YHNComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNComment.m; sourceTree = "<group>"; };
 		C48FCAE61839C44800554B35 /* YHNModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNModels.h; sourceTree = "<group>"; };
+		C4A583B91848583700B47215 /* DDURLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDURLParser.h; sourceTree = "<group>"; };
+		C4A583BA1848583700B47215 /* DDURLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDURLParser.m; sourceTree = "<group>"; };
 		C4AE4BB81830BE3C0020C1CE /* YAHNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YAHNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C4AE4BBD1830BE3C0020C1CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,7 +136,7 @@
 				C41E4E911841CAD700C2751D /* YHNArrayStack.h */,
 				C41E4E921841CAD700C2751D /* YHNArrayStack.m */,
 				C41E4E941841D19400C2751D /* YHNStack.h */,
-				C41E4E9518428F8300C2751D /* YHNStack.m */,
+				C4A583BC1848583C00B47215 /* Vendor */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -168,6 +171,16 @@
 				C43045331843050200C780BB /* XPathQuery.h */,
 			);
 			name = XPath;
+			sourceTree = "<group>";
+		};
+		C4A583BC1848583C00B47215 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				C4304531184304F200C780BB /* Hpple */,
+				C4A583B91848583700B47215 /* DDURLParser.h */,
+				C4A583BA1848583700B47215 /* DDURLParser.m */,
+			);
+			name = Vendor;
 			sourceTree = "<group>";
 		};
 		C4AE4BAF1830BE3C0020C1CE = {
@@ -206,7 +219,6 @@
 		C4AE4BC11830BE3C0020C1CE /* YAHNC */ = {
 			isa = PBXGroup;
 			children = (
-				C4304531184304F200C780BB /* Hpple */,
 				C4AE4BCA1830BE3C0020C1CE /* YHNAppDelegate.h */,
 				C4AE4BCB1830BE3C0020C1CE /* YHNAppDelegate.m */,
 				C4E09EB818394D8C008A21F1 /* YHNScraper.h */,
@@ -402,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A583BB1848583700B47215 /* DDURLParser.m in Sources */,
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
 				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
