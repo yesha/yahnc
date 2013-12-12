@@ -14,7 +14,7 @@
 #import "YHNDetailViewController.h"
 
 @interface YHNMasterViewController () {
-    NSMutableArray *_objects;
+    NSArray *_articles;
 }
 @end
 
@@ -23,14 +23,14 @@
 - (IBAction)buttonTest:(id)sender
 {
     [YHNScraper loadFrontpageAsync:^(YHNFrontpage *frontpage) {
-                    // wooooooooooooo!!!!!!!! 11/18 12:40 am
-                    NSLog(@"%@", ((YHNArticle*)frontpage.articles[0]).title);
-                }
-                withFailureHandler:^(NSError *error){
-                    
-                }
-     ];
-//    NSLog(@"%@", frontpage);
+        // wooooooooooooo!!!!!!!! 11/18 12:40 am
+        NSLog(@"%@", ((YHNArticle*)frontpage.articles[0]).title);
+        _articles = frontpage.articles;
+        [self.tableView reloadData];
+    }
+    withFailureHandler:^(NSError *error){
+        
+    }];
 }
 
 - (void)awakeFromNib
@@ -54,16 +54,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -73,15 +63,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return _articles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
+                                                            forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    YHNArticle *article = _articles[indexPath.row];
+    
+    UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
+    UILabel *postScore = (UILabel*)[cell viewWithTag:2];
+    // TODO timestamp
+    UILabel *postCommentCount = (UILabel*)[cell viewWithTag:4];
+    
+    postTitle.text = [article title];
+    postScore.text = [NSString stringWithFormat:@"%d", [article score]];
+    postCommentCount.text = [NSString stringWithFormat:@"%d comments", [article commentCount]];
+
     return cell;
 }
 
@@ -93,7 +93,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = _objects[indexPath.row];
+        NSDate *object = _articles[indexPath.row];
         self.detailViewController.detailItem = object;
     }
 }
@@ -102,7 +102,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
+        NSDate *object = _articles[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
