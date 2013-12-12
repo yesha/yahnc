@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40942E318597F9A003E159F /* YHNThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40942E218597F9A003E159F /* YHNThreadViewController.m */; };
 		C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E8D183EF54B00C2751D /* YHNUtils.m */; };
 		C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E921841CAD700C2751D /* YHNArrayStack.m */; };
 		C430452A184303FB00C780BB /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4304529184303FB00C780BB /* libxml2.2.dylib */; };
@@ -27,7 +28,6 @@
 		C4AE4BCF1830BE3C0020C1CE /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4AE4BCD1830BE3C0020C1CE /* Main_iPhone.storyboard */; };
 		C4AE4BD21830BE3C0020C1CE /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4AE4BD01830BE3C0020C1CE /* Main_iPad.storyboard */; };
 		C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */; };
-		C4AE4BD81830BE3C0020C1CE /* YHNDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AE4BD71830BE3C0020C1CE /* YHNDetailViewController.m */; };
 		C4AE4BDA1830BE3C0020C1CE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4AE4BD91830BE3C0020C1CE /* Images.xcassets */; };
 		C4AE4BE11830BE3C0020C1CE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BE01830BE3C0020C1CE /* XCTest.framework */; };
 		C4AE4BE21830BE3C0020C1CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AE4BBB1830BE3C0020C1CE /* Foundation.framework */; };
@@ -52,6 +52,8 @@
 /* Begin PBXFileReference section */
 		0723994E0FBB46648DD51F0E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C40942E118597F9A003E159F /* YHNThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNThreadViewController.h; sourceTree = "<group>"; };
+		C40942E218597F9A003E159F /* YHNThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNThreadViewController.m; sourceTree = "<group>"; };
 		C41E4E8C183EF54B00C2751D /* YHNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNUtils.h; sourceTree = "<group>"; };
 		C41E4E8D183EF54B00C2751D /* YHNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNUtils.m; sourceTree = "<group>"; };
 		C41E4E911841CAD700C2751D /* YHNArrayStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNArrayStack.h; sourceTree = "<group>"; };
@@ -88,8 +90,6 @@
 		C4AE4BD11830BE3C0020C1CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		C4AE4BD31830BE3C0020C1CE /* YHNMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHNMasterViewController.h; sourceTree = "<group>"; };
 		C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHNMasterViewController.m; sourceTree = "<group>"; };
-		C4AE4BD61830BE3C0020C1CE /* YHNDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHNDetailViewController.h; sourceTree = "<group>"; };
-		C4AE4BD71830BE3C0020C1CE /* YHNDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHNDetailViewController.m; sourceTree = "<group>"; };
 		C4AE4BD91830BE3C0020C1CE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4AE4BDF1830BE3C0020C1CE /* YAHNCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YAHNCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AE4BE01830BE3C0020C1CE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -146,8 +146,8 @@
 			children = (
 				C4AE4BD31830BE3C0020C1CE /* YHNMasterViewController.h */,
 				C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */,
-				C4AE4BD61830BE3C0020C1CE /* YHNDetailViewController.h */,
-				C4AE4BD71830BE3C0020C1CE /* YHNDetailViewController.m */,
+				C40942E118597F9A003E159F /* YHNThreadViewController.h */,
+				C40942E218597F9A003E159F /* YHNThreadViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -418,11 +418,11 @@
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
 				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
-				C4AE4BD81830BE3C0020C1CE /* YHNDetailViewController.m in Sources */,
 				C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */,
 				C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */,
 				C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */,
 				C43045341843050200C780BB /* XPathQuery.m in Sources */,
+				C40942E318597F9A003E159F /* YHNThreadViewController.m in Sources */,
 				C4AE4BCC1830BE3C0020C1CE /* YHNAppDelegate.m in Sources */,
 				C4304530184304C700C780BB /* TFHppleElement.m in Sources */,
 				C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */,
