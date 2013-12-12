@@ -22,7 +22,7 @@
 
 - (IBAction)buttonTest:(id)sender
 {
-    [YHNScraper loadFrontpage:^(YHNFrontpage *frontpage) {
+    [YHNScraper loadFrontpageAsync:^(YHNFrontpage *frontpage) {
                     // wooooooooooooo!!!!!!!! 11/18 12:40 am
                     NSLog(@"%@", ((YHNArticle*)frontpage.articles[0]).title);
                 }
