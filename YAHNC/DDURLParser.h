@@ -14,6 +14,8 @@
 
 @property (nonatomic, retain, readonly) NSArray *variables;
 
++ (DDURLParser *)parserWithURLString:(NSString *)url;
+
 - (id)initWithURLString:(NSString *)url;
 - (NSString *)valueForVariable:(NSString *)varName;
 

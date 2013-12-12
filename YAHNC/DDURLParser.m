@@ -16,6 +16,11 @@
 
 @implementation DDURLParser
 
++ (DDURLParser *)parserWithURLString:(NSString *)url
+{
+    return [[DDURLParser alloc] initWithURLString:url];
+}
+
 - (id) initWithURLString:(NSString *)url{
     self = [super init];
     if (self != nil) {
