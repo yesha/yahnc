@@ -20,18 +20,22 @@
 
 @implementation YHNMasterViewController
 
-- (IBAction)buttonTest:(id)sender
+- (IBAction)refreshButton:(id)sender
+{
+    [self reloadData];
+}
+
+- (void)reloadData
 {
     [YHNScraper loadFrontpageAsync:^(YHNFrontpage *frontpage) {
-        // wooooooooooooo!!!!!!!! 11/18 12:40 am
-        NSLog(@"%@", ((YHNArticle*)frontpage.articles[0]).title);
         _articles = frontpage.articles;
         [self.tableView reloadData];
     }
     withFailureHandler:^(NSError *error){
-        
+        // TODO error message
     }];
 }
+
 
 - (void)awakeFromNib
 {
@@ -46,6 +50,7 @@
 {
     [super viewDidLoad];
     self.detailViewController = (YHNDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    [self reloadData];
 }
 
 - (void)didReceiveMemoryWarning

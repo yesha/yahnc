@@ -138,20 +138,10 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="YAHNC" id="tQt-TN-PWz">
-                        <barButtonItem key="leftBarButtonItem" title="Test" id="ecf-Q5-Njk">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="rej-Is-nR2">
                             <connections>
-                                <action selector="buttonTest:" destination="pGg-6v-bdr" id="Ejv-uZ-sLA"/>
+                                <action selector="refreshButton:" destination="pGg-6v-bdr" id="rqb-YR-a0S"/>
                             </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="SKB-zC-npX">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x4y-XH-uNQ">
-                                <rect key="frame" x="233" y="5" width="71" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="=">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
