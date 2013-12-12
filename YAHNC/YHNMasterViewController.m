@@ -63,29 +63,43 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
-    return _articles.count;
+    if (section == 0) // header row?
+        return 1;
+    else
+        return _articles.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
-                                                            forIndexPath:indexPath];
-
-    YHNArticle *article = _articles[indexPath.row];
+    UITableViewCell *cell;
     
-    UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
-    UILabel *postScore = (UILabel*)[cell viewWithTag:2];
-    // TODO timestamp
-    UILabel *postCommentCount = (UILabel*)[cell viewWithTag:4];
-    
-    postTitle.text = [article title];
-    postScore.text = [NSString stringWithFormat:@"%d", [article score]];
-    postCommentCount.text = [NSString stringWithFormat:@"%d comments", [article commentCount]];
+    if (indexPath.section == 0) { // header section?
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Header"
+                                               forIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
+                                               forIndexPath:indexPath];
+        
+        YHNArticle *article = _articles[indexPath.row];
+        
+        UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
+        UILabel *postScore = (UILabel*)[cell viewWithTag:2];
+        // TODO timestamp
+        UILabel *postCommentCount = (UILabel*)[cell viewWithTag:4];
+        
+        postTitle.text = [article title];
+        postScore.text = [NSString stringWithFormat:@"%d", [article score]];
+        postCommentCount.text = [NSString stringWithFormat:@"%d comments",
+                                 [article commentCount]];
+ 
+    }
 
     return cell;
 }
