@@ -14,4 +14,10 @@
 
 @property (strong, nonatomic) YHNThreadViewController *threadViewController;
 
+typedef NS_ENUM(NSUInteger, menuBarEnum) {
+    HOT = 0,
+    NEW = 1,
+    ASK = 2
+};
+
 @end

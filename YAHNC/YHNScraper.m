@@ -35,9 +35,25 @@ AFHTTPSessionManager *sessionManager;
 #pragma mark - Methods for loading the frontpage
 
 + (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
-   withFailureHandler:(void (^) (NSError *error))failure
+              withPageType:(NSUInteger) pageType
+        withFailureHandler:(void (^) (NSError *error))failure
 {
-    [sessionManager GET:@"news"
+    NSString *getParameter = @"";
+    switch (pageType) {
+        case 0:
+            getParameter = @"news";
+            break;
+        case 1:
+            getParameter = @"newest";
+            break;
+        case 2:
+            getParameter = @"ask";
+            break;
+        default:
+            break;
+    }
+    
+    [sessionManager GET:getParameter
              parameters:nil
                 success:^(NSURLSessionDataTask *task, id responseObject) {
                     success([YHNScraper loadFrontpageWithData:(NSData *)responseObject]);

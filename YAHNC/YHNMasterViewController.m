@@ -13,8 +13,11 @@
 
 #import "YHNThreadViewController.h"
 
-@interface YHNMasterViewController () {
+@interface YHNMasterViewController ()
+{
     NSArray *_articles;
+    menuBarEnum _category;
+    UISegmentedControl *_menuBar;
 }
 @end
 
@@ -22,20 +25,38 @@
 
 - (IBAction)refreshButton:(id)sender
 {
-    [self reloadData];
+    [self reloadDataWithCatgeory:(_category)];
 }
 
-- (void)reloadData
+- (IBAction)menuButtonSelected:(id)sender
 {
-    [YHNScraper loadFrontpageAsync:^(YHNFrontpage *frontpage) {
+    switch (_menuBar.selectedSegmentIndex) {
+        case 0:
+            _category = HOT;
+            break;
+        case 1:
+            _category = NEW;
+            break;
+        case 2:
+            _category = ASK;
+            break;
+        default:
+            break;
+    }
+    [self reloadDataWithCatgeory:(_category)];
+}
+
+- (void)reloadDataWithCatgeory:(menuBarEnum)category
+{
+    [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
         _articles = frontpage.articles;
         [self.tableView reloadData];
     }
+    withPageType:(category)
     withFailureHandler:^(NSError *error){
         // TODO error message
     }];
 }
-
 
 - (void)awakeFromNib
 {
@@ -50,7 +71,8 @@
 {
     [super viewDidLoad];
     self.threadViewController = (YHNThreadViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    [self reloadData];
+    [self reloadDataWithCatgeory:(_category)];
+    _category = HOT;
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,29 +83,57 @@
 
 #pragma mark - Table View
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 55)];
+    UIToolbar *blurBackground= [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 55)];
+    [blurBackground setBarTintColor:[UIColor whiteColor]];
+    
+//    UIView *transparentBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TableViewHeader.png"]];
+//    transparentBackground.alpha = 0.8;
+    [headerView addSubview:blurBackground];
+    
+    NSArray *buttons = [NSArray arrayWithObjects:@"HOT", @"NEW", @"ASK", nil];
+    _menuBar = [[UISegmentedControl alloc] initWithItems:buttons];
+    [_menuBar setFrame:CGRectMake(20, 12, 280, 33)];
+    [_menuBar setSelectedSegmentIndex:_category];
+    [_menuBar setEnabled:YES];
+    
+    UIFont *font = [UIFont systemFontOfSize:17.0f];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [_menuBar setTitleTextAttributes:attributes
+                            forState:UIControlStateNormal];
+    _menuBar.backgroundColor = [UIColor whiteColor];
+    [headerView addSubview:_menuBar];
+    
+    // associate IBAction with segmented control in header
+    [_menuBar addTarget:self action:@selector(menuButtonSelected:) forControlEvents:UIControlEventValueChanged];
+    
+    return headerView;
+}
+
+-(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 55.0;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) // header row?
-        return 1;
-    else
-        return _articles.count;
+    return _articles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    
-    if (indexPath.section == 0) { // header section?
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Header"
-                                               forIndexPath:indexPath];
-    } else {
+
         cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
                                                forIndexPath:indexPath];
         
@@ -91,15 +141,19 @@
         
         UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
         UILabel *postScore = (UILabel*)[cell viewWithTag:2];
+        UILabel *postCommentCount = (UILabel*)[cell viewWithTag:3];
         // TODO timestamp
-        UILabel *postCommentCount = (UILabel*)[cell viewWithTag:4];
+        // TOTO link
         
         postTitle.text = [article title];
         postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
-        postCommentCount.text = [NSString stringWithFormat:@"%ld comments",
-                                 (long)[article commentCount]];
- 
-    }
+        
+        long commentCount = [article commentCount];
+        if (commentCount == 1) {
+            postCommentCount.text = [NSString stringWithFormat:@"1 comment"];
+        } else {
+            postCommentCount.text = [NSString stringWithFormat:@"%ld comments", commentCount];
+        }
 
     return cell;
 }

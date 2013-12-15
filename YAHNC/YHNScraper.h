@@ -14,6 +14,7 @@
 @interface YHNScraper : NSObject
 
 + (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
+              withPageType:(NSUInteger)pageType
         withFailureHandler:(void (^) (NSError *error))failure;
 
 + (void)loadThreadAsync:(YHNArticle *)article
