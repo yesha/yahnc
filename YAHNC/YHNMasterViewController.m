@@ -45,6 +45,7 @@
             break;
     }
     [self reloadDataWithCatgeory:(_category)];
+    [[self tableView] scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 - (void)reloadDataWithCatgeory:(menuBarEnum)category
