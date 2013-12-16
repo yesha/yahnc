@@ -236,7 +236,6 @@ AFHTTPSessionManager *sessionManager;
     }
     
     NSArray *parentComments = [YHNScraper buildCommentTree:comments];
-
     return [[YHNCommentsThread alloc] initWithArticle:article comments:parentComments];
 }
 
