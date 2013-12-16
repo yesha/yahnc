@@ -10,8 +10,9 @@
 #import "YHNFrontpage.h"
 
 #import "YHNMasterViewController.h"
-
 #import "YHNThreadViewController.h"
+
+#import "MBProgressHUD/MBProgressHUD.h"
 
 @interface YHNMasterViewController ()
 {
@@ -48,14 +49,28 @@
 
 - (void)reloadDataWithCatgeory:(menuBarEnum)category
 {
-    [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
-        _articles = frontpage.articles;
-        [self.tableView reloadData];
-    }
-    withPageType:(category)
-    withFailureHandler:^(NSError *error){
-        // TODO error message
-    }];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        
+        [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
+            _articles = frontpage.articles;
+            [self.tableView reloadData];
+        }
+                          withPageType:(category)
+                    withFailureHandler:^(NSError *error){
+                        [[[UIAlertView alloc] initWithTitle:@"Network error"
+                                                    message:[error localizedDescription]
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil] show];
+                    }
+         ];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
 
 - (void)awakeFromNib
