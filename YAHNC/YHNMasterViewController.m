@@ -157,7 +157,7 @@
         UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
         UILabel *postScore = (UILabel*)[cell viewWithTag:2];
         UILabel *postCommentCount = (UILabel*)[cell viewWithTag:3];
-        // TODO timestamp
+        UILabel *postTime  = (UILabel*)[cell viewWithTag:4];
         // TOTO link
         
         postTitle.text = [article title];
@@ -169,6 +169,8 @@
         } else {
             postCommentCount.text = [NSString stringWithFormat:@"%ld comments", commentCount];
         }
+    
+        postTime.text = [article timeInfo];
 
     return cell;
 }

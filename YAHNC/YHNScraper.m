@@ -152,7 +152,10 @@ AFHTTPSessionManager *sessionManager;
     NSString *user = [userElement text];
     NSString *userUrl = userElement.attributes[@"href"];
     
-    // child 3 has time information (TODO we'll get this later)
+    // child 3 has time information
+    TFHppleElement *timeElement = children[3];
+    NSString *time = [timeElement content];
+    
     // child 4 has comments information
     TFHppleElement *commentsElement = children[4];
     NSInteger commentCount = [YHNScraper getQuantityFromString:[commentsElement text]];
@@ -161,6 +164,7 @@ AFHTTPSessionManager *sessionManager;
     article.score = score;
     article.user = user;
     article.userId = [[DDURLParser parserWithURLString:userUrl] valueForVariable:@"id"];
+    article.timeInfo =  [YHNScraper getTimeInfoFromString:time];
     article.commentCount = commentCount;
     article.commentsId = [[DDURLParser parserWithURLString:commentsUrl] valueForVariable:@"id"];
 }
@@ -322,6 +326,30 @@ AFHTTPSessionManager *sessionManager;
     }
 
     return [[string substringToIndex:substringEnd] integerValue];
+}
+
++ (NSString *)getTimeInfoFromString:(NSString *)string
+{
+    NSScanner *scanner = [NSScanner scannerWithString:string];
+    
+    NSInteger  qty = 0;
+    NSString *unit = @"";
+    [scanner scanInteger:&qty];
+    [scanner scanString:@"second" intoString:&unit];
+    [scanner scanString:@"minute" intoString:&unit];
+    [scanner scanString:@"hour" intoString:&unit];
+    [scanner scanString:@"day" intoString:&unit];
+    
+    if ([unit isEqualToString:@"second"])
+        return [NSString stringWithFormat:@"%d s", qty];
+    else if ([unit isEqualToString:@"minute"])
+        return [NSString stringWithFormat:@"%d m", qty];
+    else if ([unit isEqualToString:@"hour"])
+        return [NSString stringWithFormat:@"%d h", qty];
+    else if ([unit isEqualToString:@"day"])
+        return [NSString stringWithFormat:@"%d d", qty];
+    else
+        return @"";
 }
 
 @end
