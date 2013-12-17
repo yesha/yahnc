@@ -78,10 +78,10 @@ AFHTTPSessionManager *sessionManager;
     // The first <tr> element contains the rank, up/downvote, title, origin site, and URL
     // The second <tr> element contains the score, comment count, and comments URL
     // The third <tr> element is for spacing
-    for (int i = 0; i < ([articleNodes count] / 3) * 3; i += 3) {
-        TFHppleElement *titleTr = articleNodes[i];
-        TFHppleElement *subtextTr = articleNodes[i + 1];
-        // articleNodes[i + 2] is a spacer
+    for (int i = 0; i < [articleNodes count] / 3; i++) {
+        TFHppleElement *titleTr = articleNodes[3*i];
+        TFHppleElement *subtextTr = articleNodes[3*i + 1];
+        // articleNodes[3*i + 2] is a spacer
         
         YHNArticle *article = [YHNArticle new];
         [YHNScraper fillArticle:article withTitleElement:titleTr];
