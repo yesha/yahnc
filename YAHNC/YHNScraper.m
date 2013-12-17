@@ -231,7 +231,10 @@ AFHTTPSessionManager *sessionManager;
                 NSLog(@"DEBUG: comment %@ has no reply link (probably new)", comment.permalink);
             }
         }
-
+        
+        if (![comment.contents string]) {
+            continue;
+        }
         [comments addObject:comment];
     }
     

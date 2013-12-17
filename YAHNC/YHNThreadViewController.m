@@ -10,7 +10,9 @@
 #import "YHNScraper.h"
 #import "YHNModels.h"
 
-@interface YHNThreadViewController ()
+@interface YHNThreadViewController () {
+    NSUInteger parentCommentIndex;
+}
 
 @property (nonatomic, strong) YHNCommentsThread *thread;
 
@@ -100,7 +102,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSLog(@"number of parent comments: %lu", (unsigned long)[[self.thread parentComments] count]);
-    return [[self.thread parentComments] count];
+//    NSInteger n = 0;
+//    for (int i=0; i < self.thread.parentComments.count; i++) {
+//        YHNComment *comment = [[self.thread parentComments] objectAtIndex:i];
+//        NSString *commentContentText = [comment.contents string];
+//        commentContentText = [commentContentText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        NSLog(@"TEXT DUUURRP: %@",commentContentText);
+//        if (commentContentText && ![commentContentText isEqualToString:@""]) n++;
+//    }
+    
+    return self.thread.parentComments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,8 +122,11 @@
     cell = [tableView dequeueReusableCellWithIdentifier:commentCellId
                                            forIndexPath:indexPath];
     UITextView *commentContent = (UITextView *)[cell viewWithTag:2];
-    commentContent.text = [[self.thread commentWithIndexPath:indexPath].contents string];
-    //NSLog(@"Comment at indexPath %@: %@", indexPath, commentContent.text);
+    
+    YHNComment *comment;
+    comment = [[self.thread parentComments] objectAtIndex:indexPath.row];
+    commentContent.text = [comment.contents string];
+    //NSLog(@"Comment at indexPath %ld: %@", (long)indexPath.row, commentContent.text);
     return cell;
 }
 
