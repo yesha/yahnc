@@ -65,6 +65,7 @@
     postTitle.text = [article title];
     postTitle.numberOfLines = 3;
     postTitle.minimumScaleFactor = 0.75;
+    postTitle.adjustsFontSizeToFitWidth = YES;
     postTitle.font = [UIFont systemFontOfSize: 13.0];
     
     postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
@@ -89,10 +90,13 @@
     [headerView addSubview:postScore];
     [headerView addSubview:postCommentCount];
     [headerView addSubview:postTime];
-    
     [headerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                              action:@selector(handleHeaderTap:)]];
     
+    UILabel *separator = [[UILabel alloc] initWithFrame:CGRectMake(5, 58, 310, 1)];
+    separator.backgroundColor = [UIColor colorWithRed:0.0 green:0.50196081400000003 blue:1 alpha:1];
+    [headerView addSubview:separator];
+
     return headerView;
 }
 
@@ -151,14 +155,14 @@
 {
     CGFloat cellWidth = 280.0;
     
-    UILabel *commentContent = [[UILabel alloc] initWithFrame:CGRectZero];
-    commentContent.numberOfLines = 0;
-    commentContent.lineBreakMode = NSLineBreakByCharWrapping;
+    UILabel *dummyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    dummyLabel.numberOfLines = 0;
+    dummyLabel.lineBreakMode = NSLineBreakByCharWrapping;
     
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
-    commentContent.attributedText = comment.contents;
+    dummyLabel.attributedText = comment.contents;
     
-    CGSize labelSize = [commentContent sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
+    CGSize labelSize = [dummyLabel sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
 //    NSLog(@"size: %fl", labelSize.height);
     labelSize.height = labelSize.height + 15.0;
     
