@@ -134,13 +134,15 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
     
     CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, labelSize.height);
-    UILabel *commentContent = [[UILabel alloc]initWithFrame: commentFrame];
-    commentContent.numberOfLines = 0;
+    UITextView *commentContent = [[UITextView alloc]initWithFrame: commentFrame];
+    commentContent.editable = NO;
+    commentContent.scrollEnabled = NO;
     
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
     commentContent.attributedText = comment.contents;
     [cell addSubview:commentContent];
-    cell.userInteractionEnabled = NO;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //cell.userInteractionEnabled = NO;
     
     return cell;
 }
