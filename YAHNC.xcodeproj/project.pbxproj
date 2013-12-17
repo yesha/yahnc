@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0ADADA18603A4B0012B41E /* YHNWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0ADAD918603A4B0012B41E /* YHNWebViewController.m */; };
 		C40942E318597F9A003E159F /* YHNThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40942E218597F9A003E159F /* YHNThreadViewController.m */; };
 		C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E8D183EF54B00C2751D /* YHNUtils.m */; };
 		C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E921841CAD700C2751D /* YHNArrayStack.m */; };
@@ -52,6 +53,8 @@
 /* Begin PBXFileReference section */
 		0723994E0FBB46648DD51F0E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0ADAD818603A4B0012B41E /* YHNWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNWebViewController.h; sourceTree = "<group>"; };
+		AA0ADAD918603A4B0012B41E /* YHNWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNWebViewController.m; sourceTree = "<group>"; };
 		C40942E118597F9A003E159F /* YHNThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNThreadViewController.h; sourceTree = "<group>"; };
 		C40942E218597F9A003E159F /* YHNThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNThreadViewController.m; sourceTree = "<group>"; };
 		C41E4E8C183EF54B00C2751D /* YHNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNUtils.h; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 		C41E4E901841CA9900C2751D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				AA0ADAD818603A4B0012B41E /* YHNWebViewController.h */,
+				AA0ADAD918603A4B0012B41E /* YHNWebViewController.m */,
 				C4AE4BD31830BE3C0020C1CE /* YHNMasterViewController.h */,
 				C4AE4BD41830BE3C0020C1CE /* YHNMasterViewController.m */,
 				C40942E118597F9A003E159F /* YHNThreadViewController.h */,
@@ -415,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A583BB1848583700B47215 /* DDURLParser.m in Sources */,
+				AA0ADADA18603A4B0012B41E /* YHNWebViewController.m in Sources */,
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
 				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,

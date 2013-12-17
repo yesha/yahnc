@@ -85,8 +85,21 @@
     [headerView addSubview:postScore];
     [headerView addSubview:postCommentCount];
     [headerView addSubview:postTime];
+    
+    [headerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                             action:@selector(handleHeaderTap:)]];
+    
     return headerView;
 }
+
+- (void)handleHeaderTap:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
+    }
+}
+
 
 -(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -148,6 +161,11 @@
     return labelSize;
 }
 
-//-(void)table
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
+        [[segue destinationViewController] setArticle:self.article];
+    }
+}
 
 @end
