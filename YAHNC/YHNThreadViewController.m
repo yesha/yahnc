@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 YAHNC. All rights reserved.
 //
 
+#import "MBProgressHUD/MBProgressHUD.h"
+
 #import "YHNThreadViewController.h"
 #import "YHNScraper.h"
 #import "YHNModels.h"
@@ -33,12 +35,20 @@
 
 - (void)reloadData
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
         self.thread = thread;
         self.flatComments = [YHNFlatComment flattenCommentThread:thread];
         [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     } failure:^(NSError *error) {
         NSLog(@"Well, fuck... %@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     }];
 }
 
@@ -133,7 +143,7 @@
     CGRect cellFrame = CGRectMake(0.0, 0.0, 320.0, labelSize.height + 20.0);
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
     
-    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, labelSize.height);
+    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, cellFrame.size.height);
     UITextView *commentContent = [[UITextView alloc]initWithFrame: commentFrame];
     commentContent.editable = NO;
     commentContent.scrollEnabled = NO;
@@ -178,6 +188,11 @@
     if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
         [[segue destinationViewController] setArticle:self.article];
     }
+}
+
+- (IBAction)refreshButton:(id)sender
+{
+    [self reloadData];
 }
 
 @end
