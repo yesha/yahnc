@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C40942E318597F9A003E159F /* YHNThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40942E218597F9A003E159F /* YHNThreadViewController.m */; };
+		C418E102186039D700B376A7 /* YHNFlatComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C418E101186039D700B376A7 /* YHNFlatComment.m */; };
 		C41E4E8E183EF54B00C2751D /* YHNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E8D183EF54B00C2751D /* YHNUtils.m */; };
 		C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E4E921841CAD700C2751D /* YHNArrayStack.m */; };
 		C430452A184303FB00C780BB /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4304529184303FB00C780BB /* libxml2.2.dylib */; };
@@ -54,6 +55,8 @@
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40942E118597F9A003E159F /* YHNThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNThreadViewController.h; sourceTree = "<group>"; };
 		C40942E218597F9A003E159F /* YHNThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNThreadViewController.m; sourceTree = "<group>"; };
+		C418E100186039D700B376A7 /* YHNFlatComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFlatComment.h; sourceTree = "<group>"; };
+		C418E101186039D700B376A7 /* YHNFlatComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFlatComment.m; sourceTree = "<group>"; };
 		C41E4E8C183EF54B00C2751D /* YHNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNUtils.h; sourceTree = "<group>"; };
 		C41E4E8D183EF54B00C2751D /* YHNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNUtils.m; sourceTree = "<group>"; };
 		C41E4E911841CAD700C2751D /* YHNArrayStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNArrayStack.h; sourceTree = "<group>"; };
@@ -128,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C418E0FF186039B500B376A7 /* Intermediates */ = {
+			isa = PBXGroup;
+			children = (
+				C418E100186039D700B376A7 /* YHNFlatComment.h */,
+				C418E101186039D700B376A7 /* YHNFlatComment.m */,
+			);
+			name = Intermediates;
+			sourceTree = "<group>";
+		};
 		C41E4E8F1841CA8E00C2751D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +236,7 @@
 				C4E09EB818394D8C008A21F1 /* YHNScraper.h */,
 				C4E09EB918394D8C008A21F1 /* YHNScraper.m */,
 				C4E09EB4183948EF008A21F1 /* Models */,
+				C418E0FF186039B500B376A7 /* Intermediates */,
 				C41E4E901841CA9900C2751D /* UI */,
 				C41E4E8F1841CA8E00C2751D /* Utilities */,
 				C4AE4BCD1830BE3C0020C1CE /* Main_iPhone.storyboard */,
@@ -419,6 +432,7 @@
 				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
 				C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */,
+				C418E102186039D700B376A7 /* YHNFlatComment.m in Sources */,
 				C41E4E931841CAD700C2751D /* YHNArrayStack.m in Sources */,
 				C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */,
 				C43045341843050200C780BB /* XPathQuery.m in Sources */,
