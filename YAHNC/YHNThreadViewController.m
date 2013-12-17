@@ -118,13 +118,9 @@
     
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
     commentContent.attributedText = comment.contents;
-    NSLog(@"Comment at indexPath %ld:<%@>", (long)indexPath.row, commentContent.text);
-    
     [cell addSubview:commentContent];
-    NSLog(@"this is aV origin: %f, %f", cell.accessoryView.frame.origin.x, cell.accessoryView.frame.origin.y);
-    
     cell.userInteractionEnabled = NO;
-    NSLog(@"this is indent level: %ld", (long)cell.indentationLevel);
+    
     return cell;
 }
 
@@ -147,6 +143,7 @@
     
     CGSize labelSize = [commentContent sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
 //    NSLog(@"size: %fl", labelSize.height);
+    labelSize.height = labelSize.height + 15.0;
     
     return labelSize;
 }
