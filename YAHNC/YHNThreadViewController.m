@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 YAHNC. All rights reserved.
 //
 
-#import "MBProgressHUD/MBProgressHUD.h"
-
 #import "YHNThreadViewController.h"
 #import "YHNScraper.h"
 #import "YHNModels.h"
 
 #import "YHNFlatComment.h"
+
+#import "MBProgressHUD/MBProgressHUD.h"
 #import "FontAwesome-iOS/NSString+FontAwesome.h"
 
 @interface YHNThreadViewController () {
@@ -25,8 +25,6 @@
 @end
 
 @implementation YHNThreadViewController
-// TODO: Do we really want to use a TableView for this? It might actually not be the best choice,
-// considering the fact that we will need to nest our tables
 
 - (void)viewDidLoad
 {
@@ -46,7 +44,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     } failure:^(NSError *error) {
-        NSLog(@"Well, fuck... %@", error);
+        NSLog(@"Well, that's unfortunate... %@", error);
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
@@ -71,8 +69,10 @@
     UILabel *postTitle = [[UILabel alloc] initWithFrame:CGRectMake(61, 13, 207, 39)];
     UILabel *postScore = [[UILabel alloc] initWithFrame:CGRectMake(12, 19, 41, 28)];
     UILabel *postCommentCount = [[UILabel alloc] initWithFrame:CGRectMake(258, 13, 34, 21)];
-    UILabel *commentSymbol = [[UILabel alloc] initWithFrame:CGRectMake(293, 12, 15, 21)];
-    UILabel *postTime = [[UILabel alloc] initWithFrame:CGRectMake(281, 30, 27, 21)];
+    UILabel *postCommentSymbol = [[UILabel alloc] initWithFrame:CGRectMake(293, 12, 15, 21)];
+    UILabel *postTime = [[UILabel alloc] initWithFrame:CGRectMake(265, 30,
+                                                                  27, 21)];
+    UILabel *postTimeSymbol = [[UILabel alloc] initWithFrame:CGRectMake(293, 30, 15, 21)];
     
     postTitle.text = [article title];
     postTitle.numberOfLines = 3;
@@ -86,29 +86,30 @@
     postScore.textColor = [UIColor colorWithRed:0.0 green:0.50196081400000003 blue:1 alpha:1];
     
     long commentCount = [article commentCount];
-    if (commentCount == 1) {
-        postCommentCount.text = [NSString stringWithFormat:@"1 comment"];
-    } else {
-        postCommentCount.text = [NSString stringWithFormat:@"%ld", commentCount];
-    }
+    postCommentCount.text = [NSString stringWithFormat:@"%ld", commentCount];
+    
     postCommentCount.font = [UIFont systemFontOfSize: 10.5];
     postCommentCount.textAlignment = NSTextAlignmentRight;
     
-    commentSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
-    commentSymbol.text = [NSString awesomeIcon:FaCommentO];
-    commentSymbol.textAlignment = NSTextAlignmentRight;
+    postCommentSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
+    postCommentSymbol.text = [NSString awesomeIcon:FaCommentO];
+    postCommentSymbol.textAlignment = NSTextAlignmentRight;
     
     postTime.text = [article timeInfo];
     postTime.font = [UIFont systemFontOfSize: 10.5];
     postTime.textAlignment = NSTextAlignmentRight;
     
+    postTimeSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
+    postTimeSymbol.text = [NSString awesomeIcon:FaClockO];
+    postTimeSymbol.textAlignment = NSTextAlignmentRight;
+    
     [headerView addSubview:postTitle];
     [headerView addSubview:postScore];
     [headerView addSubview:postCommentCount];
-    [headerView addSubview:commentSymbol];
+    [headerView addSubview:postCommentSymbol];
     [headerView addSubview:postTime];
-    [headerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                             action:@selector(handleHeaderTap:)]];
+    [headerView addSubview:postTimeSymbol];
+    [headerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleHeaderTap:)]];
     
     UILabel *separator = [[UILabel alloc] initWithFrame:CGRectMake(5, 58, 310, 1)];
     separator.backgroundColor = [UIColor colorWithRed:0.0 green:0.50196081400000003 blue:1 alpha:1];
@@ -139,7 +140,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //NSLog(@"number of parent comments: %lu", (unsigned long)[[self.thread parentComments] count]);
     return [self.flatComments count];
 }
 
@@ -148,7 +148,9 @@
     CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
     YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
     YHNComment *comment = flatComment.comment;
-    CGFloat xCoord = 10.0*flatComment.nesting;
+
+    // Whoo one line for comment nesting!
+    CGFloat xCoord = 16.0 * flatComment.nesting;
     
     CGRect cellFrame = CGRectMake(0.0, 0.0, 320.0, labelSize.height + 20.0);
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
@@ -163,6 +165,7 @@
     UILabel *commentAuthor = [[UILabel alloc] initWithFrame:authorFrame];
     commentAuthor.font = [UIFont boldSystemFontOfSize:10];
     commentAuthor.text = comment.user;
+    commentAuthor.textAlignment = NSTextAlignmentLeft;
     
     [cell addSubview:commentContent];
     [cell addSubview:commentAuthor];
@@ -189,9 +192,9 @@
     YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
     YHNComment *comment = flatComment.comment;
     dummyLabel.attributedText = comment.contents;
+    CGFloat xCoord = 16.0 * flatComment.nesting;
     
-    CGSize labelSize = [dummyLabel sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
-//    NSLog(@"size: %fl", labelSize.height);
+    CGSize labelSize = [dummyLabel sizeThatFits:CGSizeMake(cellWidth-xCoord, CGFLOAT_MAX)];
     labelSize.height = labelSize.height + 15.0;
     
     return labelSize;

@@ -13,6 +13,7 @@
 #import "YHNThreadViewController.h"
 
 #import "MBProgressHUD/MBProgressHUD.h"
+#import "FontAwesome-iOS/NSString+FontAwesome.h"
 
 @interface YHNMasterViewController ()
 {
@@ -150,29 +151,33 @@
 {
     UITableViewCell *cell;
 
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
-                                               forIndexPath:indexPath];
-        
-        YHNArticle *article = _articles[indexPath.row];
-        
-        UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
-        UILabel *postScore = (UILabel*)[cell viewWithTag:2];
-        UILabel *postCommentCount = (UILabel*)[cell viewWithTag:3];
-        UILabel *postTime  = (UILabel*)[cell viewWithTag:4];
-        // TOTO link
-        
-        postTitle.text = [article title];
-        postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
-        
-        long commentCount = [article commentCount];
-        if (commentCount == 1) {
-            postCommentCount.text = [NSString stringWithFormat:@"1 comment"];
-        } else {
-            postCommentCount.text = [NSString stringWithFormat:@"%ld comments", commentCount];
-        }
+    cell = [tableView dequeueReusableCellWithIdentifier:@"Post"
+                                           forIndexPath:indexPath];
     
-        postTime.text = [article timeInfo];
+    YHNArticle *article = _articles[indexPath.row];
+    
+    UILabel *postTitle = (UILabel*)[cell viewWithTag:1];
+    UILabel *postScore = (UILabel*)[cell viewWithTag:2];
+    UILabel *postCommentCount = (UILabel*)[cell viewWithTag:3];
+    UILabel *postCommentSymbol = (UILabel*)[cell viewWithTag:4];
+    UILabel *postTime  = (UILabel*)[cell viewWithTag:5];
+    UILabel *postTimeSymbol = (UILabel*)[cell viewWithTag:6];
+    
+    postTitle.text = [article title];
+    postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
+    
+    long commentCount = [article commentCount];
+    postCommentCount.text = [NSString stringWithFormat:@"%ld", commentCount];
+    
+    postCommentSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
+    postCommentSymbol.text = [NSString awesomeIcon:FaCommentO];
+    postCommentSymbol.textAlignment = NSTextAlignmentRight;
 
+    postTime.text = [article timeInfo];
+    postTimeSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
+    postTimeSymbol.text = [NSString awesomeIcon:FaClockO];
+    postTimeSymbol.textAlignment = NSTextAlignmentRight;
+    
     return cell;
 }
 
