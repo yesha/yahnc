@@ -55,7 +55,7 @@
     // Scan through the NSAttributedString and change all occurrences of Times New Roman
     // to the default system font that looks so much nicer
     NSRange range = NSMakeRange(0, [string length]);
-    CGFloat fontSize = [UIFont systemFontSize];
+    CGFloat fontSize = 10.0;
 
     UIFont *systemFont = [UIFont systemFontOfSize:fontSize];
     UIFont *italicSystemFont = [UIFont italicSystemFontOfSize:fontSize];

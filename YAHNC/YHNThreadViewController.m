@@ -117,14 +117,13 @@
     UILabel *commentContent = [[UILabel alloc]initWithFrame:CGRectMake(20.0, 20.0, labelSize.width, labelSize.height)];
     commentContent.lineBreakMode = NSLineBreakByWordWrapping;
     commentContent.numberOfLines = 0;
-    commentContent.font = [UIFont systemFontOfSize:10.0];
     
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
     commentContent.attributedText = comment.contents;
-    [commentContent sizeToFit];
     //NSLog(@"Comment at indexPath %ld: %@", (long)indexPath.row, commentContent.text);
     
     cell.accessoryView = commentContent;
+    cell.userInteractionEnabled = NO;
     return cell;
 }
 
