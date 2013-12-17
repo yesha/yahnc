@@ -107,34 +107,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *commentCellId = @"Comment";
-    UITableViewCell *cell;
-
-    cell = [tableView dequeueReusableCellWithIdentifier:commentCellId
-                                           forIndexPath:indexPath];
-    //UITextView *commentContent = (UITextView *)[cell viewWithTag:2];
     CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
-    UILabel *commentContent = [[UILabel alloc]initWithFrame:CGRectMake(20.0, 20.0, labelSize.width, labelSize.height)];
-    commentContent.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    CGRect cellFrame = CGRectMake(0.0, 0.0, 320.0, labelSize.height + 20.0);
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
+    
+    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, labelSize.height);
+    UILabel *commentContent = [[UILabel alloc]initWithFrame: commentFrame];
     commentContent.numberOfLines = 0;
     
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
     commentContent.attributedText = comment.contents;
-    //NSLog(@"Comment at indexPath %ld: %@", (long)indexPath.row, commentContent.text);
+    NSLog(@"Comment at indexPath %ld:<%@>", (long)indexPath.row, commentContent.text);
     
-    cell.accessoryView = commentContent;
+    [cell addSubview:commentContent];
+    NSLog(@"this is aV origin: %f, %f", cell.accessoryView.frame.origin.x, cell.accessoryView.frame.origin.y);
+    
     cell.userInteractionEnabled = NO;
+    NSLog(@"this is indent level: %ld", (long)cell.indentationLevel);
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
-    return labelSize.height + 39.0;
+    return labelSize.height + 20.0;
 }
 
 - (CGSize)labelSizeForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat cellWidth = 280.0;
+    
     UILabel *commentContent = [[UILabel alloc] initWithFrame:CGRectZero];
     commentContent.numberOfLines = 0;
     commentContent.lineBreakMode = NSLineBreakByCharWrapping;
@@ -142,8 +145,8 @@
     YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
     commentContent.attributedText = comment.contents;
     
-    CGSize labelSize = [commentContent sizeThatFits:CGSizeMake(280.0, CGFLOAT_MAX)];
-    NSLog(@"size: %fl", labelSize.height);
+    CGSize labelSize = [commentContent sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
+//    NSLog(@"size: %fl", labelSize.height);
     
     return labelSize;
 }

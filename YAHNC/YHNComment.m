@@ -63,7 +63,7 @@
     // Block for font attribute enumeration
     // adapted from http://stackoverflow.com/questions/19921972/
     id eachFont = ^(id value, NSRange range, BOOL *stop) {
-        UIFont *currentFont = value;
+        UIFont *currentFont = [value fontWithSize:9.0];
         UIFont *replacementFont = nil;
 
         if ([currentFont.familyName isEqualToString:@"Times New Roman"]) {
@@ -74,6 +74,8 @@
                 replacementFont = systemFont;
             }
             [string addAttribute:NSFontAttributeName value:replacementFont range:range];
+        } else {
+            [string addAttribute:NSFontAttributeName value:currentFont range:range];
         }
     };
 
