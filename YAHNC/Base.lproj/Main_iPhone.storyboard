@@ -242,7 +242,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xlc-9y-qek">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="lSU-8x-BRw"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="lSU-8x-BRw">
+                            <connections>
+                                <action selector="refreshButton:" destination="L0Z-SO-C77" id="v6P-4A-09Q"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8d-XX-I6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
