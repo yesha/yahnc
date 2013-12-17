@@ -148,10 +148,16 @@
     commentContent.editable = NO;
     commentContent.scrollEnabled = NO;
     
+    CGRect authorFrame = CGRectMake(25.0, -15, labelSize.width, 50);
+    UILabel *commentAuthor = [[UILabel alloc] initWithFrame:authorFrame];
+    commentAuthor.font = [UIFont boldSystemFontOfSize:10];
+    
     YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
     YHNComment *comment = flatComment.comment;
     commentContent.attributedText = comment.contents;
     [cell addSubview:commentContent];
+    commentAuthor.text = comment.user;
+    [cell addSubview:commentAuthor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //cell.userInteractionEnabled = NO;
     
