@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) YHNArticle *article;
 
+- (CGSize)labelSizeForRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end

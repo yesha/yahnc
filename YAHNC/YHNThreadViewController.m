@@ -101,16 +101,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"number of parent comments: %lu", (unsigned long)[[self.thread parentComments] count]);
-//    NSInteger n = 0;
-//    for (int i=0; i < self.thread.parentComments.count; i++) {
-//        YHNComment *comment = [[self.thread parentComments] objectAtIndex:i];
-//        NSString *commentContentText = [comment.contents string];
-//        commentContentText = [commentContentText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        NSLog(@"TEXT DUUURRP: %@",commentContentText);
-//        if (commentContentText && ![commentContentText isEqualToString:@""]) n++;
-//    }
-    
+    //NSLog(@"number of parent comments: %lu", (unsigned long)[[self.thread parentComments] count]);
     return self.thread.parentComments.count;
 }
 
@@ -121,13 +112,43 @@
 
     cell = [tableView dequeueReusableCellWithIdentifier:commentCellId
                                            forIndexPath:indexPath];
-    UITextView *commentContent = (UITextView *)[cell viewWithTag:2];
+    //UITextView *commentContent = (UITextView *)[cell viewWithTag:2];
+    CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
+    UILabel *commentContent = [[UILabel alloc]initWithFrame:CGRectMake(20.0, 20.0, labelSize.width, labelSize.height)];
+    commentContent.lineBreakMode = NSLineBreakByWordWrapping;
+    commentContent.numberOfLines = 0;
+    commentContent.font = [UIFont systemFontOfSize:10.0];
     
-    YHNComment *comment;
-    comment = [[self.thread parentComments] objectAtIndex:indexPath.row];
-    commentContent.text = [comment.contents string];
+    YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
+    commentContent.attributedText = comment.contents;
+    [commentContent sizeToFit];
     //NSLog(@"Comment at indexPath %ld: %@", (long)indexPath.row, commentContent.text);
+    
+    cell.accessoryView = commentContent;
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
+    return labelSize.height + 39.0;
+}
+
+- (CGSize)labelSizeForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UILabel *commentContent = [[UILabel alloc] initWithFrame:CGRectZero];
+    commentContent.numberOfLines = 0;
+    commentContent.lineBreakMode = NSLineBreakByCharWrapping;
+    
+    YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
+    commentContent.attributedText = comment.contents;
+    
+    CGSize labelSize = [commentContent sizeThatFits:CGSizeMake(280.0, CGFLOAT_MAX)];
+    NSLog(@"size: %fl", labelSize.height);
+    
+    return labelSize;
+}
+
+//-(void)table
 
 @end
