@@ -64,7 +64,7 @@
     postTitle.font = [UIFont systemFontOfSize: 13.0];
     
     postScore.text = [NSString stringWithFormat:@"%ld", (long)[article score]];
-    postScore.font = [UIFont systemFontOfSize: 27.5];
+    postScore.font = [UIFont systemFontOfSize: 20];
     postScore.textAlignment = NSTextAlignmentCenter;
     postScore.textColor = [UIColor colorWithRed:0.0 green:0.50196081400000003 blue:1 alpha:1];
     
