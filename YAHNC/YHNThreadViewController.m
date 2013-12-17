@@ -143,7 +143,7 @@
     CGRect cellFrame = CGRectMake(0.0, 0.0, 320.0, labelSize.height + 20.0);
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
     
-    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, labelSize.height);
+    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, cellFrame.size.height);
     UITextView *commentContent = [[UITextView alloc]initWithFrame: commentFrame];
     commentContent.editable = NO;
     commentContent.scrollEnabled = NO;
