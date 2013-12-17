@@ -10,6 +10,8 @@
 #import "YHNScraper.h"
 #import "YHNModels.h"
 
+#import "YHNFlatComment.h"
+
 @interface YHNThreadViewController () {
     NSUInteger parentCommentIndex;
 }
@@ -32,6 +34,8 @@
 {
     [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
         self.thread = thread;
+        NSArray *flatComments = [YHNFlatComment flattenCommentThread:thread];
+        NSLog(@"%@", flatComments);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"Well, fuck... %@", error);
