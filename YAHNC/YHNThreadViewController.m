@@ -17,6 +17,7 @@
 }
 
 @property (nonatomic, strong) YHNCommentsThread *thread;
+@property (nonatomic, strong) NSArray *flatComments;
 
 @end
 
@@ -34,8 +35,7 @@
 {
     [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
         self.thread = thread;
-        NSArray *flatComments = [YHNFlatComment flattenCommentThread:thread];
-        NSLog(@"%@", flatComments);
+        self.flatComments = [YHNFlatComment flattenCommentThread:thread];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"Well, fuck... %@", error);
@@ -123,7 +123,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //NSLog(@"number of parent comments: %lu", (unsigned long)[[self.thread parentComments] count]);
-    return self.thread.parentComments.count;
+    return [self.flatComments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +137,8 @@
     UILabel *commentContent = [[UILabel alloc]initWithFrame: commentFrame];
     commentContent.numberOfLines = 0;
     
-    YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
+    YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
+    YHNComment *comment = flatComment.comment;
     commentContent.attributedText = comment.contents;
     [cell addSubview:commentContent];
     cell.userInteractionEnabled = NO;
@@ -159,7 +160,8 @@
     dummyLabel.numberOfLines = 0;
     dummyLabel.lineBreakMode = NSLineBreakByCharWrapping;
     
-    YHNComment *comment = [self.thread.parentComments objectAtIndex:indexPath.row];
+    YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
+    YHNComment *comment = flatComment.comment;
     dummyLabel.attributedText = comment.contents;
     
     CGSize labelSize = [dummyLabel sizeThatFits:CGSizeMake(cellWidth, CGFLOAT_MAX)];
