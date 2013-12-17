@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 YAHNC. All rights reserved.
 //
 
+#import "MBProgressHUD/MBProgressHUD.h"
+
 #import "YHNThreadViewController.h"
 #import "YHNScraper.h"
 #import "YHNModels.h"
@@ -33,12 +35,20 @@
 
 - (void)reloadData
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
         self.thread = thread;
         self.flatComments = [YHNFlatComment flattenCommentThread:thread];
         [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     } failure:^(NSError *error) {
         NSLog(@"Well, fuck... %@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     }];
 }
 
