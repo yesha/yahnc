@@ -13,6 +13,7 @@
 #import "YHNModels.h"
 
 #import "YHNFlatComment.h"
+#import "FontAwesome-iOS/NSString+FontAwesome.h"
 
 @interface YHNThreadViewController () {
     NSUInteger parentCommentIndex;
@@ -67,9 +68,10 @@
 
     YHNArticle *article = self.article;
     
-    UILabel *postTitle = [[UILabel alloc] initWithFrame:CGRectMake(61, 7, 163, 51)];
-    UILabel *postScore = [[UILabel alloc] initWithFrame:CGRectMake(12, 16, 41, 28)];
-    UILabel *postCommentCount = [[UILabel alloc] initWithFrame:CGRectMake(232, 16, 76, 21)];
+    UILabel *postTitle = [[UILabel alloc] initWithFrame:CGRectMake(61, 13, 207, 39)];
+    UILabel *postScore = [[UILabel alloc] initWithFrame:CGRectMake(12, 19, 41, 28)];
+    UILabel *postCommentCount = [[UILabel alloc] initWithFrame:CGRectMake(258, 13, 34, 21)];
+    UILabel *commentSymbol = [[UILabel alloc] initWithFrame:CGRectMake(293, 12, 15, 21)];
     UILabel *postTime = [[UILabel alloc] initWithFrame:CGRectMake(281, 30, 27, 21)];
     
     postTitle.text = [article title];
@@ -87,10 +89,14 @@
     if (commentCount == 1) {
         postCommentCount.text = [NSString stringWithFormat:@"1 comment"];
     } else {
-        postCommentCount.text = [NSString stringWithFormat:@"%ld comments", commentCount];
+        postCommentCount.text = [NSString stringWithFormat:@"%ld", commentCount];
     }
     postCommentCount.font = [UIFont systemFontOfSize: 10.5];
     postCommentCount.textAlignment = NSTextAlignmentRight;
+    
+    commentSymbol.font = [UIFont fontWithName:@"FontAwesome" size:11.5];
+    commentSymbol.text = [NSString awesomeIcon:FaCommentO];
+    commentSymbol.textAlignment = NSTextAlignmentRight;
     
     postTime.text = [article timeInfo];
     postTime.font = [UIFont systemFontOfSize: 10.5];
@@ -99,6 +105,7 @@
     [headerView addSubview:postTitle];
     [headerView addSubview:postScore];
     [headerView addSubview:postCommentCount];
+    [headerView addSubview:commentSymbol];
     [headerView addSubview:postTime];
     [headerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                              action:@selector(handleHeaderTap:)]];
@@ -139,27 +146,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
+    YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
+    YHNComment *comment = flatComment.comment;
+    CGFloat xCoord = 10.0*flatComment.nesting;
     
     CGRect cellFrame = CGRectMake(0.0, 0.0, 320.0, labelSize.height + 20.0);
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:cellFrame];
     
-    CGRect commentFrame = CGRectMake(25.0, 10.0, labelSize.width, cellFrame.size.height);
+    CGRect commentFrame = CGRectMake(25.0+xCoord, 20.0, labelSize.width, cellFrame.size.height);
     UITextView *commentContent = [[UITextView alloc]initWithFrame: commentFrame];
     commentContent.editable = NO;
     commentContent.scrollEnabled = NO;
+    commentContent.attributedText = comment.contents;
     
-    CGRect authorFrame = CGRectMake(25.0, -15, labelSize.width, 50);
+    CGRect authorFrame = CGRectMake(25.0+xCoord, -9.0, labelSize.width, 50);
     UILabel *commentAuthor = [[UILabel alloc] initWithFrame:authorFrame];
     commentAuthor.font = [UIFont boldSystemFontOfSize:10];
-    
-    YHNFlatComment *flatComment = [self.flatComments objectAtIndex:indexPath.row];
-    YHNComment *comment = flatComment.comment;
-    commentContent.attributedText = comment.contents;
-    [cell addSubview:commentContent];
     commentAuthor.text = comment.user;
+    
+    [cell addSubview:commentContent];
     [cell addSubview:commentAuthor];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    //cell.userInteractionEnabled = NO;
     
     return cell;
 }
@@ -167,7 +175,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize labelSize = [self labelSizeForRowAtIndexPath: indexPath];
-    return labelSize.height + 20.0;
+    return labelSize.height + 30.0;
 }
 
 - (CGSize)labelSizeForRowAtIndexPath:(NSIndexPath *)indexPath

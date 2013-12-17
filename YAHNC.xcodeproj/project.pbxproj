@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53ADD2F118607300004837C1 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53ADD2F018607300004837C1 /* fontawesome-webfont.ttf */; };
 		AA0ADADA18603A4B0012B41E /* YHNWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0ADAD918603A4B0012B41E /* YHNWebViewController.m */; };
 		C40942E318597F9A003E159F /* YHNThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40942E218597F9A003E159F /* YHNThreadViewController.m */; };
 		C418E102186039D700B376A7 /* YHNFlatComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C418E101186039D700B376A7 /* YHNFlatComment.m */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		0723994E0FBB46648DD51F0E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		53ADD2F018607300004837C1 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		7C91C9CD02BC4B6D96B5E3DC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0ADAD818603A4B0012B41E /* YHNWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNWebViewController.h; sourceTree = "<group>"; };
 		AA0ADAD918603A4B0012B41E /* YHNWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNWebViewController.m; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				C4AE4BE61830BE3C0020C1CE /* YAHNCTests */,
 				C4AE4BBA1830BE3C0020C1CE /* Frameworks */,
 				C4AE4BB91830BE3C0020C1CE /* Products */,
+				53ADD2F018607300004837C1 /* fontawesome-webfont.ttf */,
 				0723994E0FBB46648DD51F0E /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			files = (
 				C4AE4BD21830BE3C0020C1CE /* Main_iPad.storyboard in Resources */,
 				C4AE4BDA1830BE3C0020C1CE /* Images.xcassets in Resources */,
+				53ADD2F118607300004837C1 /* fontawesome-webfont.ttf in Resources */,
 				C4AE4BCF1830BE3C0020C1CE /* Main_iPhone.storyboard in Resources */,
 				C4AE4BC61830BE3C0020C1CE /* InfoPlist.strings in Resources */,
 			);
