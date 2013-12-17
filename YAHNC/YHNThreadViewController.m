@@ -66,7 +66,7 @@
 
     YHNArticle *article = self.article;
     
-    UILabel *postTitle = [[UILabel alloc] initWithFrame:CGRectMake(61, 13, 207, 39)];
+    UILabel *postTitle = [[UILabel alloc] initWithFrame:CGRectMake(61, 13, 200, 39)];
     UILabel *postScore = [[UILabel alloc] initWithFrame:CGRectMake(12, 19, 41, 28)];
     UILabel *postCommentCount = [[UILabel alloc] initWithFrame:CGRectMake(258, 13, 34, 21)];
     UILabel *postCommentSymbol = [[UILabel alloc] initWithFrame:CGRectMake(293, 12, 15, 21)];
@@ -165,6 +165,7 @@
     UILabel *commentAuthor = [[UILabel alloc] initWithFrame:authorFrame];
     commentAuthor.font = [UIFont boldSystemFontOfSize:10];
     commentAuthor.text = comment.user;
+    if (!commentAuthor.text) commentAuthor.text = @"causer";
     commentAuthor.textAlignment = NSTextAlignmentLeft;
     
     [cell addSubview:commentContent];
