@@ -12,7 +12,6 @@
 #import "YHNMasterViewController.h"
 #import "YHNThreadViewController.h"
 
-#import "MBProgressHUD/MBProgressHUD.h"
 #import "FontAwesome-iOS/NSString+FontAwesome.h"
 
 @interface YHNMasterViewController ()
@@ -25,9 +24,33 @@
 
 @implementation YHNMasterViewController
 
-- (IBAction)refreshButton:(id)sender
+- (void)awakeFromNib
 {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.clearsSelectionOnViewWillAppear = NO;
+        self.preferredContentSize = CGSizeMake(320.0, 600.0);
+    }
+    [super awakeFromNib];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.threadViewController = (YHNThreadViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     [self reloadDataWithCatgeory:(_category)];
+    _category = HOT;
+
+    // Set up pull-to-refresh
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshInvoked:forState:)
+                  forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)refreshInvoked:(UIRefreshControl *)control forState:(UIControlState)state
+{
+    control.attributedTitle = [[NSAttributedString alloc] initWithString:@"Fetching new articles"];
+    [self reloadDataWithCatgeory:_category];
 }
 
 - (IBAction)menuButtonSelected:(id)sender
@@ -51,51 +74,31 @@
 
 - (void)reloadDataWithCatgeory:(menuBarEnum)category
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        
-        [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
-            _articles = frontpage.articles;
-            [self.tableView reloadData];
-        }
-                          withPageType:(category)
-                    withFailureHandler:^(NSError *error){
-                        [[[UIAlertView alloc] initWithTitle:@"Network error"
-                                                    message:[error localizedDescription]
-                                                    delegate:self
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil] show];
-                    }
-         ];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-    });
-}
+    [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
+        // On successful load
+        _articles = frontpage.articles;
+        [self.tableView reloadData];
 
-- (void)awakeFromNib
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
-        self.preferredContentSize = CGSizeMake(320.0, 600.0);
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
+                                 [formatter stringFromDate:[NSDate date]]];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+        [self.refreshControl endRefreshing];
     }
-    [super awakeFromNib];
-}
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.threadViewController = (YHNThreadViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    [self reloadDataWithCatgeory:(_category)];
-    _category = HOT;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+                      withPageType:(category)
+                withFailureHandler:^(NSError *error){
+                    // On unsuccessful load
+                    [[[UIAlertView alloc] initWithTitle:@"Network error"
+                                                message:[error localizedDescription]
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil] show];
+                    self.refreshControl.attributedTitle = [[NSAttributedString alloc]  initWithString:@"Network error"];
+                    [self.refreshControl endRefreshing];
+                }
+     ];
 }
 
 #pragma mark - Table View
