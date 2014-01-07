@@ -41,7 +41,6 @@
     _category = HOT;
 
     // Set up pull-to-refresh
-    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refreshInvoked:forState:)
                   forControlEvents:UIControlEventValueChanged];
