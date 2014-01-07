@@ -17,6 +17,7 @@
 		C430452F184304C700C780BB /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = C430452C184304C700C780BB /* TFHpple.m */; };
 		C4304530184304C700C780BB /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C430452E184304C700C780BB /* TFHppleElement.m */; };
 		C43045341843050200C780BB /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = C43045321843050200C780BB /* XPathQuery.m */; };
+		C4336E2C187BE0DE00201F7D /* NSString+YHNStringUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C4336E2B187BE0DE00201F7D /* NSString+YHNStringUtilities.m */; };
 		C43D86FC18447B0D0086D920 /* YHNStack.m in Sources */ = {isa = PBXBuildFile; fileRef = C43D86FB18447B0D0086D920 /* YHNStack.m */; };
 		C48FCADF1839769600554B35 /* YHNFrontpage.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCADE1839769600554B35 /* YHNFrontpage.m */; };
 		C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C48FCAE1183999B000554B35 /* YHNCommentsThread.m */; };
@@ -74,6 +75,8 @@
 		C430452E184304C700C780BB /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFHppleElement.m; path = hpple/TFHppleElement.m; sourceTree = SOURCE_ROOT; };
 		C43045321843050200C780BB /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathQuery.m; path = hpple/XPathQuery.m; sourceTree = SOURCE_ROOT; };
 		C43045331843050200C780BB /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = hpple/XPathQuery.h; sourceTree = SOURCE_ROOT; };
+		C4336E2A187BE0DE00201F7D /* NSString+YHNStringUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+YHNStringUtilities.h"; sourceTree = "<group>"; };
+		C4336E2B187BE0DE00201F7D /* NSString+YHNStringUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+YHNStringUtilities.m"; sourceTree = "<group>"; };
 		C43D86FB18447B0D0086D920 /* YHNStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHNStack.m; path = YAHNC/YHNStack.m; sourceTree = "<group>"; };
 		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
 		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 		C41E4E8F1841CA8E00C2751D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C4336E2A187BE0DE00201F7D /* NSString+YHNStringUtilities.h */,
+				C4336E2B187BE0DE00201F7D /* NSString+YHNStringUtilities.m */,
 				C41E4E8C183EF54B00C2751D /* YHNUtils.h */,
 				C41E4E8D183EF54B00C2751D /* YHNUtils.m */,
 				C41E4E911841CAD700C2751D /* YHNArrayStack.h */,
@@ -439,6 +444,7 @@
 				C4A583BB1848583700B47215 /* DDURLParser.m in Sources */,
 				AA0ADADA18603A4B0012B41E /* YHNWebViewController.m in Sources */,
 				C4E09EB718394A37008A21F1 /* YHNArticle.m in Sources */,
+				C4336E2C187BE0DE00201F7D /* NSString+YHNStringUtilities.m in Sources */,
 				C48FCAE518399BAE00554B35 /* YHNComment.m in Sources */,
 				C4AE4BD51830BE3C0020C1CE /* YHNMasterViewController.m in Sources */,
 				C48FCAE2183999B000554B35 /* YHNCommentsThread.m in Sources */,
