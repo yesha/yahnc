@@ -10,10 +10,9 @@
 
 #import "YHNArticle.h"
 
-@interface YHNWebViewController : UIViewController
+@interface YHNWebViewController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong, readonly) YHNArticle *article;
-
-@property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSString *articleTitle;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "YHNThreadViewController.h"
+#import "YHNWebViewController.h"
 #import "YHNScraper.h"
 #import "YHNModels.h"
 
@@ -231,7 +232,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
-        [[segue destinationViewController] setArticle:self.article];
+        YHNWebViewController *webViewController = [segue destinationViewController];
+        webViewController.articleTitle = self.article.title;
+        webViewController.url = self.article.url;
     }
 }
 
