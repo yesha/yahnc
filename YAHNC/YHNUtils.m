@@ -10,4 +10,11 @@
 
 @implementation YHNUtils
 
++ (NSString *)currentDateTimeAsString
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    return [formatter stringFromDate:[NSDate date]];
+}
+
 @end

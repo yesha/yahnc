@@ -88,11 +88,8 @@
     _articles = frontpage.articles;
     [self.tableView reloadData];
 
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
-                             [formatter stringFromDate:[NSDate date]]];
-
+    NSString *now = [YHNUtils currentDateTimeAsString];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@", now];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
     [self.refreshControl endRefreshing];
 }

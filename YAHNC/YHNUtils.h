@@ -14,4 +14,6 @@
 
 @interface YHNUtils : NSObject
 
++ (NSString *)currentDateTimeAsString;
+
 @end
