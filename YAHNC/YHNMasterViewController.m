@@ -73,31 +73,39 @@
 
 - (void)reloadDataWithCatgeory:(menuBarEnum)category
 {
-    [YHNScraper loadFrontpageAsync: ^(YHNFrontpage *frontpage) {
-        // On successful load
-        _articles = frontpage.articles;
-        [self.tableView reloadData];
-
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
-                                 [formatter stringFromDate:[NSDate date]]];
-        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
-        [self.refreshControl endRefreshing];
-    }
-
-                      withPageType:(category)
-                withFailureHandler:^(NSError *error){
-                    // On unsuccessful load
-                    [[[UIAlertView alloc] initWithTitle:@"Network error"
-                                                message:[error localizedDescription]
-                                               delegate:self
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil] show];
-                    self.refreshControl.attributedTitle = [[NSAttributedString alloc]  initWithString:@"Network error"];
-                    [self.refreshControl endRefreshing];
-                }
+    [YHNScraper loadFrontpageAsync:category
+                           success:^(YHNFrontpage *frontpage) {
+                               [self onFrontpageLoad:frontpage];
+                           }
+                           failure:^(NSError *error){
+                               [self onFrontpageError:error];
+                           }
      ];
+}
+
+- (void)onFrontpageLoad:(YHNFrontpage *)frontpage
+{
+    _articles = frontpage.articles;
+    [self.tableView reloadData];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@",
+                             [formatter stringFromDate:[NSDate date]]];
+
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+    [self.refreshControl endRefreshing];
+}
+
+- (void)onFrontpageError:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"Network error"
+                                message:[error localizedDescription]
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Network error"];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Table View

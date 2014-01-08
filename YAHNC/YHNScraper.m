@@ -34,9 +34,9 @@ AFHTTPSessionManager *sessionManager;
 
 #pragma mark - Methods for loading the frontpage
 
-+ (void)loadFrontpageAsync:(void (^) (YHNFrontpage *frontpage))success
-              withPageType:(NSUInteger) pageType
-        withFailureHandler:(void (^) (NSError *error))failure
++ (void)loadFrontpageAsync:(NSUInteger)pageType
+                   success:(void (^) (YHNFrontpage *frontpage))success
+                   failure:(void (^) (NSError *error))failure
 {
     NSString *getParameter = @"";
     switch (pageType) {
