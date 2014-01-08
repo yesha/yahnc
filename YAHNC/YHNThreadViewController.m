@@ -30,25 +30,53 @@
 {
     [super viewDidLoad];
     [self reloadData];
+
+    // Set up pull-to-refresh
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshInvoked:forState:)
+                  forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)refreshInvoked:(UIRefreshControl *)control forState:(UIControlState)state
+{
+    control.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating thread"];
+    [self reloadData];
 }
 
 - (void)reloadData
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [YHNScraper loadThreadAsync:self.article success:^(YHNCommentsThread *thread) {
-        self.thread = thread;
-        self.flatComments = [YHNFlatComment flattenCommentThread:thread];
-        [self.tableView reloadData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-    } failure:^(NSError *error) {
-        NSLog(@"Well, that's unfortunate... %@", error);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-    }];
+    [YHNScraper loadThreadAsync:self.article
+                        success:^(YHNCommentsThread *thread) {
+                            [self onThreadLoad:thread];
+                        } failure:^(NSError *error) {
+                            [self onThreadFailure:error];
+                        }
+     ];
+}
+
+- (void)onThreadLoad:(YHNCommentsThread *)thread
+{
+    self.thread = thread;
+    self.flatComments = [YHNFlatComment flattenCommentThread:thread];
+    [self.tableView reloadData];
+
+    NSString *now = [YHNUtils currentDateTimeAsString];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@", now];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+    [self.refreshControl endRefreshing];
+}
+
+- (void)onThreadFailure:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"Network error"
+                                message:[error localizedDescription]
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Network error"];
+    [self.refreshControl endRefreshing];
+
+    NSLog(@"%@", error);
 }
 
 - (void)didReceiveMemoryWarning
