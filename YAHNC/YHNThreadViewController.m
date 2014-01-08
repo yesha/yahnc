@@ -235,9 +235,4 @@
     }
 }
 
-- (IBAction)refreshButton:(id)sender
-{
-    [self reloadData];
-}
-
 @end
