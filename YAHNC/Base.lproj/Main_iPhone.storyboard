@@ -278,7 +278,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RoM-pa-DSF">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoM-pa-DSF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -286,7 +286,7 @@
                                     <outlet property="delegate" destination="DkF-wv-dd1" id="QLT-I1-xt7"/>
                                 </connections>
                             </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2CF-gB-vO3">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CF-gB-vO3">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -311,6 +311,15 @@
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RoM-pa-DSF" firstAttribute="leading" secondItem="2CF-gB-vO3" secondAttribute="leading" id="6Y0-61-5fL"/>
+                            <constraint firstItem="RoM-pa-DSF" firstAttribute="leading" secondItem="CcB-4B-Xnn" secondAttribute="leading" id="FvZ-fZ-Yod"/>
+                            <constraint firstItem="RoM-pa-DSF" firstAttribute="bottom" secondItem="2CF-gB-vO3" secondAttribute="bottom" id="N75-nX-ydX"/>
+                            <constraint firstAttribute="trailing" secondItem="RoM-pa-DSF" secondAttribute="trailing" id="O6N-TF-Ezm"/>
+                            <constraint firstItem="RoM-pa-DSF" firstAttribute="top" secondItem="CcB-4B-Xnn" secondAttribute="top" id="eKd-r9-Pas"/>
+                            <constraint firstItem="RoM-pa-DSF" firstAttribute="trailing" secondItem="2CF-gB-vO3" secondAttribute="trailing" id="sqX-Ea-MIB"/>
+                            <constraint firstAttribute="bottom" secondItem="2CF-gB-vO3" secondAttribute="bottom" id="wd4-r2-M7K"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="wSL-pJ-sfK">
