@@ -48,7 +48,7 @@
 
 - (void)refreshInvoked:(UIRefreshControl *)control forState:(UIControlState)state
 {
-    control.attributedTitle = [[NSAttributedString alloc] initWithString:@"Fetching new articles"];
+    control.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading posts"];
     [self reloadDataWithCatgeory:_category];
 }
 
@@ -103,6 +103,8 @@
                       otherButtonTitles:nil] show];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Network error"];
     [self.refreshControl endRefreshing];
+
+    NSLog(@"%@", error);
 }
 
 #pragma mark - Table View
