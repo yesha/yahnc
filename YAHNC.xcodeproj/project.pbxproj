@@ -77,7 +77,7 @@
 		C43045331843050200C780BB /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = hpple/XPathQuery.h; sourceTree = SOURCE_ROOT; };
 		C4336E2A187BE0DE00201F7D /* NSString+YHNStringUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+YHNStringUtilities.h"; sourceTree = "<group>"; };
 		C4336E2B187BE0DE00201F7D /* NSString+YHNStringUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+YHNStringUtilities.m"; sourceTree = "<group>"; };
-		C43D86FB18447B0D0086D920 /* YHNStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YHNStack.m; path = YAHNC/YHNStack.m; sourceTree = "<group>"; };
+		C43D86FB18447B0D0086D920 /* YHNStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNStack.m; sourceTree = "<group>"; };
 		C48FCADD1839769600554B35 /* YHNFrontpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNFrontpage.h; sourceTree = "<group>"; };
 		C48FCADE1839769600554B35 /* YHNFrontpage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHNFrontpage.m; sourceTree = "<group>"; };
 		C48FCAE0183999B000554B35 /* YHNCommentsThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNCommentsThread.h; sourceTree = "<group>"; };
@@ -158,6 +158,7 @@
 				C41E4E911841CAD700C2751D /* YHNArrayStack.h */,
 				C41E4E921841CAD700C2751D /* YHNArrayStack.m */,
 				C41E4E941841D19400C2751D /* YHNStack.h */,
+				C43D86FB18447B0D0086D920 /* YHNStack.m */,
 				C4A583BC1848583C00B47215 /* Vendor */,
 			);
 			name = Utilities;
@@ -210,7 +211,6 @@
 		C4AE4BAF1830BE3C0020C1CE = {
 			isa = PBXGroup;
 			children = (
-				C43D86FB18447B0D0086D920 /* YHNStack.m */,
 				C4AE4BC11830BE3C0020C1CE /* YAHNC */,
 				C4AE4BE61830BE3C0020C1CE /* YAHNCTests */,
 				C4AE4BBA1830BE3C0020C1CE /* Frameworks */,
