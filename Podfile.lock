@@ -18,16 +18,13 @@ PODS:
   - AFNetworking/UIKit (2.0.2):
     - AFNetworking/NSURLConnection
   - FontAwesome-iOS (0.0.3)
-  - MBProgressHUD (0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - FontAwesome-iOS
-  - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
   AFNetworking: e663917201cdb73f4ad2ba239ad35be8dc9a1e3c
   FontAwesome-iOS: 354da71a6e0aa07370973c42a79f55437961f611
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
 
 COCOAPODS: 0.28.0

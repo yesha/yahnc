@@ -12,7 +12,6 @@
 
 #import "YHNFlatComment.h"
 
-#import "MBProgressHUD/MBProgressHUD.h"
 #import "FontAwesome-iOS/NSString+FontAwesome.h"
 
 @interface YHNThreadViewController () {
