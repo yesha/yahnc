@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YHNArticle.h"
 
-@interface YHNThreadViewController : UITableViewController
+@interface YHNThreadViewController : UITableViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) YHNArticle *article;
 

@@ -94,6 +94,16 @@
     [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
 }
 
+#pragma mark - UITextViewDelegate methods
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL
+         inRange:(NSRange)characterRange
+{
+    // TODO: special handling for news.ycombinator.com links
+    [self openInWebView:URL title:nil];
+    return NO;
+}
+
 #pragma mark - Table view data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -196,6 +206,8 @@
     UITextView *commentContent = [[UITextView alloc]initWithFrame: commentFrame];
     commentContent.editable = NO;
     commentContent.scrollEnabled = NO;
+    commentContent.selectable = YES;
+    commentContent.delegate = self;
     commentContent.attributedText = comment.contents;
     
     CGRect authorFrame = CGRectMake(25.0+xCoord, -9.0, labelSize.width, 50);
