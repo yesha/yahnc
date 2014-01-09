@@ -45,6 +45,30 @@
     [self reloadData];
 }
 
+- (void)openInWebView:(NSURL *)URL title:(NSString *)title
+{
+    targetUrl = URL;
+    targetTitle = title;
+    [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
+        if (targetUrl == nil) {
+            NSLog(@"WARN: nil URL");
+        }
+        YHNWebViewController *webViewController = [segue destinationViewController];
+        webViewController.articleTitle = targetTitle;
+        webViewController.url = targetUrl;
+
+        targetTitle = nil;
+        targetUrl = nil;
+    }
+}
+
+#pragma mark - Data fetching
+
 - (void)reloadData
 {
     [YHNScraper loadThreadAsync:self.article
@@ -79,19 +103,6 @@
     [self.refreshControl endRefreshing];
 
     NSLog(@"%@", error);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)openInWebView:(NSURL *)URL title:(NSString *)title
-{
-    targetUrl = URL;
-    targetTitle = title;
-    [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
 }
 
 #pragma mark - UITextViewDelegate methods
@@ -248,21 +259,6 @@
     labelSize.height = labelSize.height + 15.0;
     
     return labelSize;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
-        if (targetUrl == nil) {
-            NSLog(@"WARN: nil URL");
-        }
-        YHNWebViewController *webViewController = [segue destinationViewController];
-        webViewController.articleTitle = targetTitle;
-        webViewController.url = targetUrl;
-
-        targetTitle = nil;
-        targetUrl = nil;
-    }
 }
 
 @end
