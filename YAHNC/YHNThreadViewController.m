@@ -17,6 +17,8 @@
 
 @interface YHNThreadViewController () {
     NSUInteger parentCommentIndex;
+    NSURL *targetUrl;
+    NSString *targetTitle;
 }
 
 @property (nonatomic, strong) YHNCommentsThread *thread;
@@ -85,6 +87,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)openInWebView:(NSURL *)URL title:(NSString *)title
+{
+    targetUrl = URL;
+    targetTitle = title;
+    [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
+}
+
 #pragma mark - Table view data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -150,7 +159,7 @@
 {
     if (sender.state == UIGestureRecognizerStateEnded)
     {
-        [self performSegueWithIdentifier:@"ShowArticleContent" sender:self];
+        [self openInWebView:self.article.url title:self.article.title];
     }
 }
 
@@ -232,9 +241,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"ShowArticleContent"]) {
+        if (targetUrl == nil) {
+            NSLog(@"WARN: nil URL");
+        }
         YHNWebViewController *webViewController = [segue destinationViewController];
-        webViewController.articleTitle = self.article.title;
-        webViewController.url = self.article.url;
+        webViewController.articleTitle = targetTitle;
+        webViewController.url = targetUrl;
+
+        targetTitle = nil;
+        targetUrl = nil;
     }
 }
 
