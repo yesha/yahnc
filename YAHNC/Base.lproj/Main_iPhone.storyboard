@@ -307,6 +307,8 @@
                                             <action selector="refreshButtonPressed:" destination="DkF-wv-dd1" id="hBa-ep-s56"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mQ7-Gw-5la"/>
+                                    <barButtonItem id="4BJ-WF-7te"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -326,6 +328,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="blA-VM-9RH"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityPlaceholder" destination="4BJ-WF-7te" id="pfp-8D-v6d"/>
                         <outlet property="backButton" destination="R38-OT-Lmi" id="2MI-X0-6tx"/>
                         <outlet property="forwardButton" destination="AFK-Le-Sip" id="dyt-GP-Ll8"/>
                         <outlet property="refreshButton" destination="ar5-o1-7uY" id="M3e-U1-zWg"/>

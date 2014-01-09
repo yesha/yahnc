@@ -16,6 +16,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *activityPlaceholder;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
 - (IBAction)backButtonPressed:(id)sender;
 - (IBAction)forwardButtonPressed:(id)sender;
 - (IBAction)refreshButtonPressed:(id)sender;
@@ -27,6 +30,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    // Initialize an activity indicator on the toolbar
+    self.activityIndicator = [[UIActivityIndicatorView alloc]
+                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.hidesWhenStopped = YES;
+    // Reinitializes the current bar button item to our activity indicator.
+    // It is safe to ignore the warning (I think) about the unused expression result.
+    [self.activityPlaceholder initWithCustomView:self.activityIndicator];
+
     [self loadWebPage];
 }
 
@@ -54,12 +66,14 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.activityIndicator startAnimating];
     [self updateButtons];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.activityIndicator stopAnimating];
     [self updateButtons];
 }
 
@@ -73,6 +87,8 @@
     }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.activityIndicator stopAnimating];
+    [self updateButtons];
 
     NSString *errorString = [error localizedDescription];
     NSString *errorTitle = [NSString stringWithFormat:@"Error (%d)", error.code];
@@ -82,7 +98,6 @@
                                               cancelButtonTitle:nil
                                               otherButtonTitles:@"OK", nil];
     [errorView show];
-    [self updateButtons];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
